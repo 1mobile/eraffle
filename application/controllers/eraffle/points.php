@@ -8,7 +8,7 @@ class Points extends CI_Controller {
         $data = $this->syter->spawn('points');
         $th = array('Redeemer','Email','Points','');
         $data['code'] = site_list_table('codes','code_id','points-tbl',$th,'points/search_form',true,'grid');
-        $data['page_title'] = fa('fa-dot-circle-o')." Points";
+        $data['page_title'] = fa('fa-dot-circle-o')." Email Points";
         $data['load_js'] = 'eraffle/points';
         $data['use_js'] = 'pointsJS';
         $data['page_no_padding'] = true;
@@ -43,12 +43,42 @@ class Points extends CI_Controller {
         $query = $this->site_model->db->last_query();
         $json = array();
         if(count($items) > 0){
+            $ems = array();
+            foreach ($items as $res) {
+                $ems[] = $res->email;
+            }
+            $nargs['redeems.email'] = $ems;
+            $nelect = "email,sum(total_points) as points";
+            $nesult = $this->site_model->get_tbl('redeems',$nargs,array(),null,true,$nelect,'email');
+            $negs = array();
+            if(count($nesult) > 0){
+                foreach ($nesult as $nes) {
+                    if(!isset($negs[$nes->email])){
+                        $negs[$nes->email] = array('points'=>$nes->points);
+                    }
+                    else{
+                        $n = $negs[$nes->email];
+                        $n['points'] += $n['points'];
+                        $negs[$nes->email] = $n;
+                    }
+                }
+            }
+
+
             foreach ($items as $res) {
                 $link = $this->make->A(fa('fa-edit fa-lg'),base_url().'points/profile?email='.$res->email,array('return'=>true));
+                $totalP = $res->points;
+                if(isset($negs[$res->email])){
+                    $neg = $negs[$res->email];
+                    $totalP -= $neg['points'];
+                    if($totalP < 0)
+                        $totalP = 0;
+                }
+
                 $json[$res->email] = array(
                     "title"=>ucwords(strtolower($res->name)),   
                     "subtitle"=>$res->email,   
-                    "caption"=>$res->points." Points",
+                    "caption"=>$totalP." Point(s)",
                     "link"=>$link,
                     // "reg_date"=>($res->reg_date == ""? "" : sql2Date($res->reg_date))
                 );
