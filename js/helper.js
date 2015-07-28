@@ -922,13 +922,15 @@
 				string = string+"<td><a href='#' id='edit-"+opt.cart+"-"+data.id+"' class = 'edit-"+opt.cart+"' ref='"+data.id+"'><i class='fa fa-edit fa-lg'></i></a>";
 				string = string+" <a href='#' id='delete-"+opt.cart+"-"+data.id+"' class = 'delete-"+opt.cart+"' ref='"+data.id+"'><i class='fa fa-trash-o fa-lg'></i></a></td>";
 				string = string+"</tr>";
-				opt.tbl.find('tbody > tr').eq(pos).before(string);
+				// opt.tbl.find('tbody > tr').eq(pos).after(string);
+				$('#show-input-row'+opt.cart).before(string);
 				
 				edit_row(opt.cart,data.id,data.items);
 				opt.onAdd.call(this,data);
 
-				if(opt.reset_row)
+				if(opt.reset_row){
 					reset_row();
+				}
 
 			},"json");
 			// });
@@ -1018,7 +1020,7 @@
 			$('.wagon-update-btns').hide();
 			$('.wagon-update-btns').removeAttr('ref');
 			row.hide();
-			$('#show-input-row').show();
+			$('#show-input-row'+opt.cart).show();
 		}
 		function edit_row(cart_name,id,items){
 			$("#edit-"+cart_name+"-"+id).click(function(e){
@@ -1084,7 +1086,7 @@
 
 			$("#delete-"+cart_name+"-"+id).click(function(e){
 				var formData = 'delete='+id;
-				$.post(baseUrl+'wagon/delete_to_wagon/'+cart_name,formData,function(data){
+				$.post(baseUrl+'wagon/delete_to_wagon/'+cart_name+'/'+id,formData,function(data){
 					$('#line-'+cart_name+'-'+id).remove();
 					opt.onDelete.call(this,data);
 				},"json");	

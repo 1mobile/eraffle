@@ -1272,6 +1272,22 @@ class Make{
 				$str .= $this->select($label,$nameID,$opts,$value,$selectParams);
 			if($this->returnitize($params)) return $str; else $this->code .= $str;
 	    }
+	    function redeemItemsDrop($label=null,$nameID=null,$value=null,$placeholder=null,$params=array()){
+	    	$CI =& get_instance();
+	 		$CI->load->model('site/site_model');
+	    	$str = "";
+				$selectParams = $params;
+				if(!isset($selectParams['return']))
+					$selectParams['return'] = true;
+
+				$results=$CI->site_model->get_custom_val('items',array('*'),'inactive',0,true);
+				$opts  = array();
+				foreach ($results as $res) {
+					$opts["[".$res->item_code."] ".$res->item_name] = array('value'=>$res->item_id,'points'=>$res->points);
+				}
+				$str .= $this->select($label,$nameID,$opts,$value,$selectParams);
+			if($this->returnitize($params)) return $str; else $this->code .= $str;
+	    }
 	    function serviceTypeDrop($label=null,$nameID=null,$value=null,$placeholder=null,$params=array()){
 	    	$CI =& get_instance();
 	 		$CI->load->model('site/site_model');

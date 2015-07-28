@@ -59,11 +59,12 @@ class Codes extends CI_Controller {
         $this->load->view('load',$data);
     }
     public function redeem(){
+
          $code = $this->input->post('rafflecode5');
          $email = $this->input->post('emailaddress');
          $name = $this->input->post('name');
          $ip = $this->input->post('ip');
-       /* $code = 'XFVF';
+ 
         $email = 'rey.tejada01@gmail.com';
         $name = 'Rey Tejada';
         $ip = '192.168.10.90';*/

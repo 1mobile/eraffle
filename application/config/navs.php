@@ -9,7 +9,7 @@ $nav['dashboard'] = array('title'=>'<i class="fa fa-tachometer"></i> Dashboard',
 	$transNavs['redeem'] = array('title'=>'Redeem','path'=>'trans/redeem','exclude'=>0);
 $nav['trans'] = array('title'=>'<i class="fa fa-random"></i> <span>Transactions</span>','path'=>$transNavs,'exclude'=>0);
 $nav['codes'] = array('title'=>'<i class="fa fa-tags"></i> <span>Codes</span>','path'=>'codes','exclude'=>0);
-$nav['points'] = array('title'=>'<i class="fa fa-dot-circle-o"></i> <span>Points</span>','path'=>'points','exclude'=>0);
+$nav['points'] = array('title'=>'<i class="fa fa-dot-circle-o"></i> <span>Email Points</span>','path'=>'points','exclude'=>0);
 $nav['items'] = array('title'=>'<i class="fa fa-archive"></i> <span>Items</span>','path'=>'items','exclude'=>0);
 $nav['config'] = array('title'=>'<i class="fa fa-building-o"></i> <span>Company</span>','path'=>'setup','exclude'=>0);
 ///ADMIN CONTROL////////////////////////////////
