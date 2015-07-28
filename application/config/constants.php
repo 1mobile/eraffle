@@ -36,35 +36,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 #DEFINE TERMINAL DETAILS
 define('TERMINAL_ID',			'1');
+define('REDEEM_TRANS',			'10');
 
-#DEFINE BRANCH DETAILS
-define('BRANCH_CODE',			'POINTONE0001');
-define('TENANT_CODE',			'50018284');
-define('TERMINAL_NUMBER',			'01');
-define('GC',						'8');
-
-define('FREE_SALE',			    '99');
-define('SALES_TRANS',			'10');
-define('SALES_VOID_TRANS',		'11');
-define('RECEIVE_TRANS',			'20');
-define('ADJUSTMENT_TRANS',		'30');
-define('WORK_ORDER',			'40');
-define('STOCK_CODE',			'5');
-
-#DEFINE BASE_TAX
-define('BASE_TAX',0.12); // Please use base tax form (eg. 0.12) not num form (12)
-
-#DEFINE SALES TYPES
-define('SALE_TYPES',serialize(array('DINEIN','COUNTER','DELIVERY','PICKUP','TAKEOUT','DRIVETHRU','RETAIL')));
-
-#DEFINE ORDER STATUSES
-define('ORD_STAT_1','Pending');
-define('ORD_STAT_2','Confirmed');
-
-
-#DEFINE READ TYPE
-define('X_READ',1);
-define('Z_READ',2);
 
 #DEFINE TIME RANGES
 $time = array();

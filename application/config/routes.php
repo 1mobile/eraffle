@@ -41,6 +41,16 @@
 $route['default_controller'] = "core/dashboard";
 $route['404_override'] = '';
 $route['login'] = "site/login";
+# RAFFLE #
+	$route['codes'] = "eraffle/codes";
+	$route['codes/(:any)'] = "eraffle/codes/$1";
+	$route['points'] = "eraffle/points";
+	$route['points/(:any)'] = "eraffle/points/$1";
+	$route['items'] = "eraffle/items";
+	$route['items/(:any)'] = "eraffle/items/$1";
+	$route['trans'] = "eraffle/trans";
+	$route['trans/(:any)'] = "eraffle/trans/$1";
+
 # USER #
 	$route['user'] = "core/user";
 	$route['user/(:any)'] = "core/user/$1";

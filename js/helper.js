@@ -1184,6 +1184,7 @@
 			loadFrom		:	$(this).attr('data-tbl-url'), 
 			loadData		:	"", 
 			noEdit 			:   false,
+			noAdd 			:   false,
 			beforeLoad 		:	function(response){},
 			afterLoad  		:	function(response){},
 			add 			: 	function(response){},
@@ -1248,14 +1249,14 @@
 				var mainRow = $('<tr/>');
 				var mainCell = $('<td/>')
 							    .attr({'colspan':'100%'})
-							    .css({'background-color':'#ddd'})
+							    .css({'background-color':'#f1f1f1'})
 							    .appendTo(mainRow);
 				var divRow = $('<div/>').attr({'class':'row'});
 
 				$.each(data.rows,function(id,td){
 					var col = $('<div/>').attr({'class':'col-md-3 text-left'});
 					// $.each(td,function(key,txt){
-						var img = '<img src="'+baseUrl+'img/user_default.png" style="height:100%;width:100%">';
+						var img = '<img src="'+baseUrl+'img/noimage.png" style="height:100%;width:100%">';
 						if(td.hasOwnProperty('image')){
 							var img = '<img src="'+baseUrl+td['image']+'" style="height:100%;width:100%">';
 						}
@@ -1350,6 +1351,7 @@
 			var filter = loadData.post;
 			$('#appends-btns').remove();
 			table.before('<div class="row" id="appends-btns"><div class="col-md-12 text-right"><div class="btn-group" id="rTable-btns"></div></div></div>');
+			if(!opt.noAdd){	
 				$('<button/>')
 					.attr({'id':'rtable-add-btn','class':'btn-success btn'})
 					.html('<i class="fa fa-plus fa-fw"></i> ADD')
@@ -1358,6 +1360,7 @@
 						opt.add.call(e);
 						return false;
 					});
+			}		
 			if(!opt.noEdit){
 				$('<button/>')
 					.attr({'id':'rtable-edit-btn','class':'btn-primary btn'})
