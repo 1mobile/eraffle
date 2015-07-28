@@ -64,7 +64,7 @@ class Codes extends CI_Controller {
          $email = $this->input->post('emailaddress');
          $name = $this->input->post('name');
          $ip = $this->input->post('ip');
- 
+ /*
         $email = 'rey.tejada01@gmail.com';
         $name = 'Rey Tejada';
         $ip = '192.168.10.90';*/
@@ -87,21 +87,26 @@ class Codes extends CI_Controller {
                 $this->send_confirm_mail($code);
             }
             else{
-                $error = "Code is redeemed already";
+                $error = "The code you have provided is redeemed already";
+				
+				
             }
         }
         else{
-            $error = "Code not found.";
+            $error = "The code you have provided is not valid.";
         }
 		if($error == ""){
-        $data = $this->syter->spawn(null,false);
-        $data['code'] = "asdasd";
-        $this->load->view('whole',$data);
-		}
-		else{
-		        $data = $this->syter->spawn(null,false);
-        $data['code'] = "asdasd";
-        $this->load->view('whole',$data)
+			$name = ucwords($name);
+			$data['status'] = "Congratulations $name! You have successfully submitted an entry with the code: ".$code;
+			$data['confirm'] = "A confirmation email was sent to ".$email. ". Thank you for joining our promo!";
+
+			$this->load->view('whole',$data);
+		}else{
+
+			$data['status'] = "";
+			$data['confirm'] = $error;
+
+			$this->load->view('whole',$data);
 		}
     }
     public function send_confirm_mail($code=null){
@@ -125,8 +130,10 @@ class Codes extends CI_Controller {
             $mail->MsgHTML("Code# ".$code." is on Redeemed.");
             $mail->AltBody  = "To view the message, please use an HTML compatible email viewer.";
             $mail->AddAddress($res->email, ucwords($res->name));
-			$subject = "Code " ;
-            mail($res->email,"Code# ".$code." is on Redeemed.",'To view the message, please use an HTML compatible email viewer.');
+			$subject = "Code ".$code ;
+			$body = "Code# ".$code." is successfully validated.";
+			$headers = 'From: RaffleEntry@1mobile.com';
+            mail($res->email,$subject,$body,$headers);
           
 		  if(!$mail->Send()){
                 $error = $mail->ErrorInfo;
