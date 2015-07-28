@@ -131,7 +131,7 @@ class Codes extends CI_Controller {
             $mail->AltBody  = "To view the message, please use an HTML compatible email viewer.";
             $mail->AddAddress($res->email, ucwords($res->name));
 			$subject = "Code ".$code ;
-			$body = "Code# ".$code." is successfully validated.";
+			$body = "Code# ".$code." was successfully validated.";
 			$headers = 'From: RaffleEntry@1mobile.com';
             mail($res->email,$subject,$body,$headers);
           
