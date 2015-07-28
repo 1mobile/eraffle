@@ -59,14 +59,14 @@ class Codes extends CI_Controller {
         $this->load->view('load',$data);
     }
     public function redeem(){
-        // $code = $this->input->post('rafflecode5');
-        // $email = $this->input->post('emailaddress');
-        // $name = $this->input->post('name');
-        // $ip = $this->input->post('ip');
-        $code = 'XFVF';
+         $code = $this->input->post('rafflecode5');
+         $email = $this->input->post('emailaddress');
+         $name = $this->input->post('name');
+         $ip = $this->input->post('ip');
+       /* $code = 'XFVF';
         $email = 'rey.tejada01@gmail.com';
         $name = 'Rey Tejada';
-        $ip = '192.168.10.90';
+        $ip = '192.168.10.90';*/
 
         $args['codes.code'] = $code;
         $result = $this->site_model->get_tbl('codes',$args);
@@ -74,7 +74,8 @@ class Codes extends CI_Controller {
         if(count($result) > 0){
             $res = $result[0];
             $now = $this->site_model->get_db_now('sql');
-            if($res->email == ""){
+		//	echo var_dump($res->email);
+            if($res->email == "" || $res->email == 0){
                 $items = array(
                     'email'=>$email,
                     'name'=>$name,
@@ -91,7 +92,16 @@ class Codes extends CI_Controller {
         else{
             $error = "Code not found.";
         }
-        echo $error;
+		if($error == ""){
+        $data = $this->syter->spawn(null,false);
+        $data['code'] = "asdasd";
+        $this->load->view('whole',$data);
+		}
+		else{
+		        $data = $this->syter->spawn(null,false);
+        $data['code'] = "asdasd";
+        $this->load->view('whole',$data)
+		}
     }
     public function send_confirm_mail($code=null){
         $this->load->library('My_PHPMailer');
@@ -114,8 +124,10 @@ class Codes extends CI_Controller {
             $mail->MsgHTML("Code# ".$code." is on Redeemed.");
             $mail->AltBody  = "To view the message, please use an HTML compatible email viewer.";
             $mail->AddAddress($res->email, ucwords($res->name));
-            
-            if(!$mail->Send()){
+			$subject = "Code " ;
+            mail($res->email,"Code# ".$code." is on Redeemed.",'To view the message, please use an HTML compatible email viewer.');
+          
+		  if(!$mail->Send()){
                 $error = $mail->ErrorInfo;
                 $mail->ClearAddresses();
                 $mail->ClearAttachments();
