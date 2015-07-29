@@ -2,12 +2,12 @@
         <?php if(!isset($noNavbar)): ?>
             <header class="header">
                 <a href="<?php echo base_url().'cashier'; ?>" class="logo">
-                    <img src = '<?php echo base_url(); ?>img/SWEETBYTESBANNERFB.jpg' style="width:100%;height:100%">
+                    <img src = '<?php echo base_url(); ?>img/SWEETBYTESBANNERFB.jpg' style="width: 60%; height: auto; margin-left: auto;margin-right: auto;display: block;">
                 </a>
 
             </header>
         <?php endif; ?>
-        <div class="wrapper cashier-wrapper row-offcanvas row-offcanvas-left">
+        <div class="wrapper cashier-wrapper row-offcanvas row-offcanvas-left" style='text-align:center;'>
 		
 		<h3> <?php echo $status; ?></h3>
 		<p><?php echo  $confirm; ?></p>

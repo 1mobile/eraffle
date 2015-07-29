@@ -8,7 +8,7 @@
 ?>
     <head>
         <meta charset="UTF-8">
-        <title>iPOS</title>
+        <title>Raffle</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <link rel="icon" type="image/png" href="<?php echo base_url(); ?>favicon-192x192.png" sizes="192x192">
         <link rel="icon" type="image/png" href="<?php echo base_url(); ?>favicon-160x160.png" sizes="160x160">

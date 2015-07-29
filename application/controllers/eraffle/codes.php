@@ -72,11 +72,12 @@ class Codes extends CI_Controller {
         $args['codes.code'] = $code;
         $result = $this->site_model->get_tbl('codes',$args);
         $error = "";
+
         if(count($result) > 0){
             $res = $result[0];
             $now = $this->site_model->get_db_now('sql');
-		//	echo var_dump($res->email);
-            if($res->email == "" || $res->email == 0){
+			//var_dump($res->email);
+            if($res->email == "" && strlen($res->email) == 0){
                 $items = array(
                     'email'=>$email,
                     'name'=>$name,
@@ -88,12 +89,11 @@ class Codes extends CI_Controller {
             }
             else{
                 $error = "The code you have provided is redeemed already";
-				
-				
+								
             }
         }
         else{
-            $error = "The code you have provided is not valid.";
+            $error = "The code you have provided is invalid";
         }
 		if($error == ""){
 			$name = ucwords($name);
