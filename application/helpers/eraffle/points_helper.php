@@ -10,7 +10,7 @@ function pointsSearchForm($post=array()){
 	$CI->make->eForm();
 	return $CI->make->code();
 }
-function pointProfile($res=array()){
+function pointProfile($res=array(),$curr_points=0){
 	$CI =& get_instance();
 	$CI->make->sDivRow();
 		$CI->make->sDivCol();
@@ -25,7 +25,7 @@ function pointProfile($res=array()){
 						$CI->make->sDivCol(4);
 						$CI->make->eDivCol();
 						$CI->make->sDivCol(4,'right');
-							$CI->make->H(2,numInt(iSetObj($res,'points'))." Points",array('style'=>'margin:8px;'));
+							$CI->make->H(2,numInt($curr_points)." Points",array('style'=>'margin:8px;'));
 						$CI->make->eDivCol();
 					$CI->make->eDivRow();
 				$CI->make->eBoxBody();

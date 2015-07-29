@@ -1,4 +1,18 @@
 <?php
+function searchForm($post=array()){
+	$CI =& get_instance();
+	$CI->make->sForm();
+		$CI->make->sDivRow();
+			$CI->make->sDivCol(6);
+				$CI->make->input('Ref #','trans_ref',null,null);
+			$CI->make->eDivCol();
+			$CI->make->sDivCol(6);
+				$CI->make->input('Email','email',null,null);
+			$CI->make->eDivCol();
+    	$CI->make->eDivRow();
+	$CI->make->eForm();
+	return $CI->make->code();
+}
 function redeemForm($emails=array()){
 	$CI =& get_instance();
 	$CI->make->sForm('trans/redeem_db',array('id'=>'redeem_form'));

@@ -1,6 +1,14 @@
 <script>
 $(document).ready(function(){
-	<?php if($use_js == 'redeemJS'): ?>
+	<?php if($use_js == 'redeemListJS'): ?>
+		$('#redeems-tbl').rTable({
+			loadFrom	: 	 'trans/get_redeem_list',
+			noEdit		: 	 true,
+			add			: 	 function(){
+								goTo('trans/redeem');
+							 }				 	
+		});
+	<?php elseif($use_js == 'redeemJS'): ?>
 		$('#save-btn').click(function(){
 			$("#redeem_form").rOkay({
 				btn_load		: 	$('#save-btn'),

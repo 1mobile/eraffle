@@ -90,21 +90,37 @@ class Points extends CI_Controller {
         $data = $this->syter->spawn('points');
         $email = $this->input->get('email');
         $res = array();
+        $curr_points = 0;
         if($email != ""){
             $select = "codes.email,codes.name,count(code) as points";
             $args['codes.email'] = $email;
             $items = $this->site_model->get_tbl('codes',$args,array('points'=>'desc'),null,true,$select,'email');
+            $pos_points = 0;
             if(count($items) > 0){
                 $res = $items[0];
-            }            
+                $pos_points = $res->points;   
+            } 
+
+            $nargs['redeems.email'] = $email;
+            $nelect = "sum(total_points) as points";
+            $nesult = $this->site_model->get_tbl('redeems',$nargs,array(),null,true,$nelect,'email');
+            $neg_points = 0;
+            if(count($nesult) > 0){
+                $nes = $nesult[0];
+                $neg_points = $nes->points;            
+            }
+
+            $curr_points = $pos_points - $neg_points;
+            if($curr_points < 0)
+                $curr_points = 0;
         }
-        $data['code'] = pointProfile($res);
+        $data['code'] = pointProfile($res,$curr_points);
         $data['page_title'] = fa('fa-dot-circle-o')." Points";
         $data['page_subtitle'] = $email;
         // $data['load_js'] = 'eraffle/points';
         // $data['use_js'] = 'pointsJS';
         $data['page_no_padding'] = true;
-        $data['sideBarHide'] = true;
+        // $data['sideBarHide'] = true;
         $this->load->view('page',$data);
     }
     public function search_form(){

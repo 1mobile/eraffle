@@ -4,6 +4,66 @@ class Trans extends CI_Controller {
         parent::__construct();
         $this->load->helper('eraffle/trans_helper');           
     }
+    public function redeem_list(){
+        $data = $this->syter->spawn('trans');
+        $th = array('REF #','EMAIL','NAME','TOTAL POINTS','APPROVED BY','DATE','');
+        $data['code'] = site_list_table('redeems','redeem_id','redeems-tbl',$th,'points/search_form');
+        $data['page_subtitle'] = "Redeems List";
+        $data['load_js'] = 'eraffle/trans';
+        $data['use_js'] = 'redeemListJS';
+        $data['page_no_padding'] = true;
+        $data['sideBarHide'] = true;
+        $this->load->view('page',$data);
+    }    
+    public function get_redeem_list($id=null,$asJson=true){
+        $pagi = null;
+        $total_rows = 20;
+        if($this->input->post('pagi'))
+            $pagi = $this->input->post('pagi');
+        $post = array();
+        $args = array();
+        if(count($this->input->post()) > 0){
+            $post = $this->input->post();
+        }
+        // $args['codes.email is not null'] = array('use'=>'where','val'=>"",'third'=>false);
+        if($this->input->post('trans_ref')){
+            $lk  =$this->input->post('trans_ref');
+            $args["redeems.trans_ref like '%".$lk."%'"] = array('use'=>'where','val'=>"",'third'=>false);
+        }
+        if($this->input->post('email')){
+             $args['codes.email'] = array('use'=>'or_like','val'=>$this->input->post('email'));
+        }
+        // if($this->input->post('datetime')){
+        //     $args['DATE(codes.datetime) = date('.date2Sql($this->input->post('datetime')).')'] = array('use'=>'where','val'=>"",'third'=>false);
+        // }
+        $select = "redeems.*,users.fname,users.mname,users.lname,users.suffix";
+        $join['users'] = array('content'=>'redeems.by = users.id');
+        $count = $this->site_model->get_tbl('redeems',$args,array('datetime'=>'desc'),$join,true,$select,null,null,true);
+        $page = paginate('codes/get_codes',$count,$total_rows,$pagi);
+        $items = $this->site_model->get_tbl('redeems',$args,array('datetime'=>'desc'),$join,true,$select,null,$page['limit']);
+        $query = $this->site_model->db->last_query();
+        $json = array();
+        if(count($items) > 0){
+            foreach ($items as $res) {
+                $link = $this->make->A(fa('fa-eye fa-lg'),'#',array('return'=>true));
+                $json[$res->redeem_id] = array(
+                    "ref"=>$res->trans_ref,   
+                    "email"=>$res->email,   
+                    "name"=>$res->name,   
+                    "points"=>numInt($res->total_points),   
+                    "by"=>ucwords(strtolower($res->fname." ".$res->mname." ".$res->lname." ".$res->suffix)),   
+                    "datetime"=>sql2Date($res->datetime),
+                    "link"=>$link,
+                    // "reg_date"=>($res->reg_date == ""? "" : sql2Date($res->reg_date))
+                );
+            }
+        }
+        echo json_encode(array('rows'=>$json,'page'=>$page['code'],'post'=>$post));
+    }
+    public function search_form(){
+        $data['code'] = searchForm();
+        $this->load->view('load',$data);
+    }
     public function redeem(){
         sess_initialize('redeem_cart');
         $data = $this->syter->spawn('trans');
