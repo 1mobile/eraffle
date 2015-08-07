@@ -10,7 +10,7 @@
         <div class="wrapper cashier-wrapper row-offcanvas row-offcanvas-left" style='text-align:center;'>
 		<hr style='border:2px solid #F19222;'>
 		<h3 style='font:25px sans-serif;'> <?php echo $status; ?></h3>
-		<p style='font: sans-serif;'><?php echo  $confirm; ?></p>
+		<p style='font: 14px sans-serif;'><?php echo  $confirm; ?></p>
         <?php 
             if(isset($code))
                 echo $code; 
