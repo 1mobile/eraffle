@@ -74,7 +74,7 @@ class Wagon extends CI_Controller {
 		if($this->session->userData($name)){
 			$wagon = $this->session->userData($name);
 		}
-		echo var_dump($wagon);
+		// echo var_dump($wagon);
 		if(!$return){
 			if($wagon_id != null){
 				// $row = array();

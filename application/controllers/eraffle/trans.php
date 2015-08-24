@@ -65,11 +65,17 @@ class Trans extends CI_Controller {
         $this->load->view('load',$data);
     }
     public function redeem(){
-        sess_initialize('redeem_cart');
         $data = $this->syter->spawn('trans');
         $emails = $this->get_emails(false);
-
-        $data['code'] = redeemForm($emails);
+        $redeem_cart[1] = array(
+            "item"=>2,
+            "item_name"=>"[IT0002] Choco Bag",
+            "points"=>1,
+            "qty"=>2
+        );
+        sess_initialize('redeem_cart',$redeem_cart);
+        
+        $data['code'] = redeemForm($emails,$redeem_cart);
         $data['page_subtitle'] = "Redeem";
         $data['load_js'] = 'eraffle/trans';
         $data['use_js'] = 'redeemJS';

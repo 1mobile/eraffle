@@ -13,7 +13,7 @@ function searchForm($post=array()){
 	$CI->make->eForm();
 	return $CI->make->code();
 }
-function redeemForm($emails=array()){
+function redeemForm($emails=array(),$cart=array()){
 	$CI =& get_instance();
 	$CI->make->sForm('trans/redeem_db',array('id'=>'redeem_form'));
 		$CI->make->H(4,"Redeem Form",array('class'=>'page-header'));
@@ -55,6 +55,23 @@ function redeemForm($emails=array()){
 							$CI->make->sTd(array('id'=>'btns-cell'));
 							$CI->make->eTd();
 						$CI->make->eRow();
+							foreach ($cart as $id => $val) {
+								$CI->make->sRow(array('class'=>'wagon-edit-rows','ref'=>$id,'cart'=>'redeem_cart'));
+									$CI->make->sTd();
+										$CI->make->append($val['item_name']);
+									$CI->make->eTd();
+									$CI->make->sTd();
+										$CI->make->append($val['points']);
+										// $CI->make->span('',array('id'=>'points-txt'));
+										// $CI->make->hidden('points','');
+									$CI->make->eTd();
+									$CI->make->sTd();
+										$CI->make->append($val['qty']);
+									$CI->make->eTd();
+									$CI->make->sTd();
+									$CI->make->eTd();
+								$CI->make->eRow();
+							}
 						$CI->make->sRow(array('class'=>'form-tbl-foot'));
 							$CI->make->sTd(array('style'=>'text-align:right'));
 								$CI->make->span('Total Points');

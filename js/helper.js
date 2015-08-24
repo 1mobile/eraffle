@@ -1028,7 +1028,6 @@
 				var row = $(opt.input_row);
 				row.show();
 				var pos = $('#line-'+cart_name+'-'+id).index(); 
-
 				$.each(opt.inputs,function(key,val){
 					var from = row.find(val['from']);
 					var elem = row.find(val['show']);
@@ -1095,12 +1094,14 @@
 		}
 		function set_edit_rows(){
 			var edit_rows = $('.wagon-edit-rows');
-			// alert(edit_rows.length);
+			
 			if(edit_rows.length > 0){
 				edit_rows.each(function(){
 					var row_id = $(this).attr('ref');
 					var cart = $(this).attr('cart');
+					// alert(cart);
 					if(cart == opt.cart){
+
 						var string = "";
 						$(this).addClass("line-row line-row-"+opt.cart);
 						$(this).attr("id","line-"+opt.cart+"-"+row_id);
@@ -1109,6 +1110,8 @@
 							string = string+"<a href='#' id='edit-"+opt.cart+"-"+row_id+"' class = 'edit-"+opt.cart+"' ref='"+row_id+"'><i class='fa fa-edit fa-lg'></i></a>";
 							string = string+" <a href='#' id='delete-"+opt.cart+"-"+row_id+"' class = 'delete-"+opt.cart+"' ref='"+row_id+"'><i class='fa fa-trash-o fa-lg'></i></a>";
 							// alert(data);
+							// alert(string);
+							console.log(data);
 							var cell = rowa.find('td:last-child');
 							// alert(data.items);
 							// alert(cell);
