@@ -1,5 +1,5 @@
  <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Codes extends CI_Controller {
+class Codesv2 extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->helper('eraffle/codes_helper');           
@@ -65,8 +65,6 @@ class Codes extends CI_Controller {
          $email = $this->input->post('emailaddress');
          $name = $this->input->post('name');
          $ip = $this->input->post('ip');
-		 $area = $this->input->post('area');
-	//	 print_r($area);die();
  /*
         $email = 'rey.tejada01@gmail.com';
         $name = 'Rey Tejada';
@@ -85,7 +83,6 @@ class Codes extends CI_Controller {
                     'email'=>$email,
                     'name'=>$name,
                     'ip'=>$ip,
-					'area_id'=>$area,
                     'datetime'=>$now
                 );
                 $this->site_model->update_tbl('codes','code',$items,$code);
@@ -115,8 +112,8 @@ class Codes extends CI_Controller {
     }
 	
 	public function raffle_form(){
-			$data['areas'] = $this->site_model->get_areas();
-			$this->load->view('form',$data);
+
+			$this->load->view('form');
     }
 	
     public function send_confirm_mail($code=null){
@@ -185,66 +182,5 @@ class Codes extends CI_Controller {
             $string .= $characters[mt_rand(0, strlen($characters)-1)];
         }
         return $string;
-    }
-	
-	public function confirm_entries(){
-        $data = $this->syter->spawn('codes');
-        $th = array('Status','ID','Code','Redeemer Email','Redeemer Name','Redeem Date','Reg Date');
-		$data['code'] = "<input type='button' value='Confirm Entries' name = 'confirm_codes'>";
-        $data['code'] .= site_list_table('codes','code_id','codes-tbl',$th,'codes/confirm_form');
-        $data['page_title'] = fa('fa-tags')." Codes";
-        $data['load_js'] = 'eraffle/codes';
-        $data['use_js'] = 'codesconfirmJS';
-        $data['page_no_padding'] = true;
-        $data['sideBarHide'] = true;
-        $this->load->view('page',$data);
-    }    
-	
-    public function get_codes_confirm($id=null,$asJson=true){
-        $pagi = null;
-        $total_rows = 20;
-        if($this->input->post('pagi'))
-            $pagi = $this->input->post('pagi');
-        $post = array();
-        $args = array();
-        if(count($this->input->post()) > 0){
-            $post = $this->input->post();
-        }
-        if($this->input->post('code')){
-            $lk  =$this->input->post('code');
-            $args["codes.code like '%".$lk."%'"] = array('use'=>'where','val'=>"",'third'=>false);
-        }
-        if($this->input->post('email')){
-             $args['codes.email'] = array('use'=>'or_like','val'=>$this->input->post('email'));
-        }
-        if($this->input->post('datetime')){
-            $args['DATE(codes.datetime) = date('.date2Sql($this->input->post('datetime')).')'] = array('use'=>'where','val'=>"",'third'=>false);
-        }
-		$args['codes.is_conf'] = array('use'=>'where','val'=>0);
-        $count = $this->site_model->get_tbl('codes',$args,array(),null,true,'*',null,null,true);
-        $page = paginate('codes/get_codes',$count,$total_rows,$pagi);
-        $items = $this->site_model->get_tbl('codes',$args,array(),null,true,'*',null,$page['limit']);
-        $query = $this->site_model->db->last_query();
-        $json = array();
-		//print_r($items);//die();
-        if(count($items) > 0){
-            foreach ($items as $res) {
-                $json[$res->code_id] = array(
-					"code_confirm" => "<input type ='checkbox' name='status' value=''>",
-                    "code_id"=>$res->code_id,   
-                    "title"=>ucwords(strtoupper($res->code)),   
-                    "subtitle"=>$res->email,   
-                    "name"=>$res->name,   
-                    "caption"=>($res->datetime == ""? "" : sql2Date($res->datetime)),
-                    "reg_date"=>($res->reg_date == ""? "" : sql2Date($res->reg_date))
-                );
-            }
-        }
-        echo json_encode(array('rows'=>$json,'page'=>$page['code'],'post'=>$post));
-    }
-	
-	public function confirm_form(){
-        $data['code'] = codeConfirmForm();
-        $this->load->view('load',$data);
     }
 }

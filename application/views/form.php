@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Project #1: Form Processing</title>
+	<title>E-Raffle Promo</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<style>
@@ -63,9 +63,9 @@ body{
 .form-style-6 input[type="url"]:focus,
 .form-style-6 textarea:focus,
 .form-style-6 select:focus {
-    box-shadow : 0 0 5px #133783;
+    box-shadow : 0 0 5px #D14343;
     padding : 3%;
-    border : 1px solid #133783;
+    border : 1px solid #D14343;
 }
 
 .form-style-6 input[type="submit"],
@@ -76,8 +76,8 @@ body{
     -moz-box-sizing : border-box;
     width : 100%;
     padding : 3%;
-    background : #3a5795;
-    border-bottom : 1px solid #133783;
+    background : #D14343;
+    border-bottom : 2px solid #AB2F30;
     border-top-style : none;
     border-right-style : none;
     border-left-style : none;
@@ -86,8 +86,9 @@ body{
 
 .form-style-6 input[type="submit"]:hover,
 .form-style-6 input[type="button"]:hover,.form-style-6 button[type="submit"]:hover {
-    background : #133783;
+    background : #B70B0D;
 }
+
 
 .form-image {
 
@@ -134,13 +135,23 @@ hr{
 	</style>
 </head>
 <body>
+
 <div class="container">
 	<div class="row">
 		<div class="form-style-6">
 			<img src='<?php echo base_url(); ?>img/chocologo.png' class= 'logo' height='194' width='303'>
 			<hr>
 			<h1> Raffle Entry</h1>
-			<form method="POST" action="/eraffle/codes/redeem">
+			<form method="POST" action="/eraffle/codes	/redeem">
+			<select name="area" required>
+			   <?php 
+					foreach($areas as $area){ 
+						$area_name = $area->name;
+						$area_loc = $area->area;
+						echo "<option name='area_opt' value= '".$area->id."'> $area_name , $area_loc </option>";
+					} 
+				?>
+			</select>
 			<input type="text" name="name" placeholder="Name" required />
 			<input type="email" name="emailaddress" placeholder="Email Address" required />
 			<input type="text" name="rafflecode5" placeholder="Raffle Code" required />

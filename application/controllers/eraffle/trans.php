@@ -1,4 +1,4 @@
- <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Trans extends CI_Controller {
     public function __construct(){
         parent::__construct();
@@ -67,12 +67,37 @@ class Trans extends CI_Controller {
     public function redeem(){
         $data = $this->syter->spawn('trans');
         $emails = $this->get_emails(false);
-        $redeem_cart[1] = array(
+		$redeem_cart = array();
+     /*   $redeem_cart[1] = array(
             "item"=>2,
             "item_name"=>"[IT0002] Choco Bag",
             "points"=>1,
-            "qty"=>2
+            "qty"=>2,
         );
+		$redeem_cart[2] = array(
+            "item"=>2,
+            "item_name"=>"[IT0003] Cadbury/Toblerone Coffee Mug",
+            "points"=>10,
+            "qty"=>1,
+        );
+		$redeem_cart[3] = array(
+            "item"=>3,
+            "item_name"=>"[IT0004] USB",
+            "points"=>30,
+            "qty"=>1,
+        );
+		$redeem_cart[4] = array(
+            "item"=>4,
+            "item_name"=>"[IT0005] Ear plugs",
+            "points"=>40,
+            "qty"=>1,
+        );
+		$redeem_cart[5] = array(
+            "item"=>4,
+            "item_name"=>"[IT0006] Car Pillow",
+            "points"=>50,
+            "qty"=>1,
+        );*/
         sess_initialize('redeem_cart',$redeem_cart);
         
         $data['code'] = redeemForm($emails,$redeem_cart);

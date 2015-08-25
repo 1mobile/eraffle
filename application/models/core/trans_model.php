@@ -143,5 +143,6 @@ class Trans_model extends CI_Model{
 		$this->db->insert('stocks',$items);
 		$this->db->trans_complete();
 	}
+	
 }
 ?>

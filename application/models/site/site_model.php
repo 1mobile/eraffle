@@ -268,5 +268,16 @@ class Site_model extends CI_Model{
 
 		return $this->db->last_query();
 	}
+	
+	public function get_areas()
+	{
+		$this->db->select('*');
+		$this->db->from('areas');
+
+			$this->db->order_by('id desc');
+			$query = $this->db->get();
+			$result = $query->result();
+			return $result;
+	}
 }
 ?>
