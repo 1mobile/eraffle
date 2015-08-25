@@ -109,6 +109,12 @@ class Codes extends CI_Controller {
 			$this->load->view('whole',$data);
 		}
     }
+	
+	public function raffle_form(){
+
+			$this->load->view('form');
+    }
+	
     public function send_confirm_mail($code=null){
         $this->load->library('My_PHPMailer');
         $error = "";
