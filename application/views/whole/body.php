@@ -81,6 +81,13 @@ body{
 .form-style-6 input[type="button"]:hover,.form-style-6 button[type="submit"]:hover {
     background : #B70B0D;
 }
+.logo{
+ margin-left:auto;
+ margin-right:auto;
+ display:block;
+ width:55%!important;
+ height:auto;
+}
 </style>
 
 	<body class='skin-red'>
@@ -88,7 +95,7 @@ body{
         <?php if(!isset($noNavbar)): ?>
             <header class="header">
                 <a href="<?php echo base_url().'cashier'; ?>" class="logo">
-                    <img src = '<?php echo base_url(); ?>img/chocologo.png' style="width: 60%; height: auto; margin-left: auto;margin-right: auto;display: block;">
+                    <img src = '<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' style="width: 60%; height: auto; margin-left: auto;margin-right: auto;display: block;">
                 </a>
 
             </header>

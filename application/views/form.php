@@ -125,6 +125,8 @@ hr{
  margin-left:auto;
  margin-right:auto;
  display:block;
+ width:55%!important;
+ height:auto;
 }
 
 @font-face {
@@ -139,7 +141,7 @@ hr{
 <div class="container">
 	<div class="row">
 		<div class="form-style-6">
-			<img src='<?php echo base_url(); ?>img/chocologo.png' class= 'logo' height='194' width='303'>
+			<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
 			<hr>
 			<h1> Raffle Entry</h1>
 			<form method="POST" action="/eraffle/codes	/redeem">
