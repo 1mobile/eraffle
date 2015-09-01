@@ -126,11 +126,11 @@ class Codes extends CI_Controller {
 	
 	public function redeem_prize(){
 			$data['areas'] = $this->site_model->get_areas();
-			$this->load->view('redeem',data);
+			$this->load->view('redeem',$data);
     }
 	
 	public function how_to(){
-			$this->load->view('how_to',data);
+			$this->load->view('how_to',$data);
     }
 	
     public function send_confirm_mail($code=null){
