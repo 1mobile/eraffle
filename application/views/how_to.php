@@ -40,13 +40,13 @@
 					<nav class="collapse navbar-collapse" role="navigation">
                   	                   <ul class="nav navbar-nav">
                       <li>
-                        <a href="#" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Add Entry</a>
+                        <a href="raffle_form" role="button" ><i class="glyphicon glyphicon-plus"></i> Add Entry</a>
                       </li>
                       <li>
                         <a href="redeem_prize"><span class="badge">Redeem Prize</span></a>
                       </li>
-					   <li>
-                        <a href="how_to">How to Claim Prize</a>
+					  <li>
+                        <a href="#">How to Claim Prize</a>
                       </li>
                     </ul>
 					</nav>
@@ -66,22 +66,8 @@
                                   		<div class="form-style-6">
 											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
 											<hr>
-											<h1> Raffle Entry</h1>
-											<form method="POST" action="/eraffle/codes	/redeem">
-											<select name="area" required>
-											   <?php 
-													foreach($areas as $area){ 
-														$area_name = $area->name;
-														$area_loc = $area->area;
-														echo "<option name='area_opt' value= '".$area->id."'> $area_name , $area_loc </option>";
-													} 
-												?>
-											</select>
-											<input type="text" name="name" placeholder="Name" required />
-											<input type="email" name="emailaddress" placeholder="Email Address" required />
-											<input type="text" name="rafflecode5" placeholder="Raffle Code" required />
-											<input type="submit" value="Send" />
-											</form>
+											<h1>How to claim your prize</h1>
+											<p>Stand by for more infos....</p>
 										</div>
                                 </div>
 

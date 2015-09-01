@@ -40,12 +40,12 @@
 					<nav class="collapse navbar-collapse" role="navigation">
                   	                   <ul class="nav navbar-nav">
                       <li>
-                        <a href="#" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Add Entry</a>
+                        <a href="raffle_form" role="button" ><i class="glyphicon glyphicon-plus"></i> Add Entry</a>
                       </li>
                       <li>
-                        <a href="redeem_prize"><span class="badge">Redeem Prize</span></a>
+                        <a href="#"><span class="badge">Redeem Prize</span></a>
                       </li>
-					   <li>
+					  <li>
                         <a href="how_to">How to Claim Prize</a>
                       </li>
                     </ul>
@@ -66,10 +66,11 @@
                                   		<div class="form-style-6">
 											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
 											<hr>
-											<h1> Raffle Entry</h1>
-											<form method="POST" action="/eraffle/codes	/redeem">
+											<h1> Redeem Prize</h1>
+											<form method="POST" action="/eraffle/codes/redeem">
 											<select name="area" required>
 											   <?php 
+
 													foreach($areas as $area){ 
 														$area_name = $area->name;
 														$area_loc = $area->area;
