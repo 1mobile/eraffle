@@ -68,20 +68,8 @@
 											<hr>
 											<h1> Redeem Prize</h1>
 											<form method="POST" action="/eraffle/codes/redeem">
-											<select name="area" required>
-											   <?php 
-
-													foreach($areas as $area){ 
-														$area_name = $area->name;
-														$area_loc = $area->area;
-														echo "<option name='area_opt' value= '".$area->id."'> $area_name , $area_loc </option>";
-													} 
-												?>
-											</select>
-											<input type="text" name="name" placeholder="Name" required />
-											<input type="email" name="emailaddress" placeholder="Email Address" required />
-											<input type="text" name="rafflecode5" placeholder="Raffle Code" required />
-											<input type="submit" value="Send" />
+												<input type="email" name="emailaddress" placeholder="Email Address" required />
+												<input type="submit" value="Send" />
 											</form>
 										</div>
                                 </div>
