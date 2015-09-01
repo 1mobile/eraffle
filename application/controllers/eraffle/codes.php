@@ -61,16 +61,16 @@ class Codes extends CI_Controller {
     }
     public function redeem(){
 
-         $code = $this->input->post('rafflecode5');
-         $email = $this->input->post('emailaddress');
-         $name = $this->input->post('name');
-         $ip = $this->input->post('ip');
-		 $area = $this->input->post('area');
-	//	 print_r($area);die();
- /*
-        $email = 'rey.tejada01@gmail.com';
-        $name = 'Rey Tejada';
-        $ip = '192.168.10.90';*/
+        $code = $this->input->post('rafflecode5');
+        $email = $this->input->post('emailaddress');
+        $name = $this->input->post('name');
+        $ip = $this->input->post('ip');
+		$area = $this->input->post('area');
+    	 //	 print_r($area);die();
+         /*
+            $email = 'rey.tejada01@gmail.com';
+            $name = 'Rey Tejada';
+            $ip = '192.168.10.90';*/
 
         $args['codes.code'] = $code;
         $result = $this->site_model->get_tbl('codes',$args);
@@ -173,7 +173,7 @@ class Codes extends CI_Controller {
             $error = "Nothing to send";
         }
     }
-    public function generate($num=0){
+    public function generate($num=0,$points=1){
         if($num > 0){
             $codes = array();
             for ($i=0; $i < $num; $i++) { 
@@ -186,7 +186,8 @@ class Codes extends CI_Controller {
                     }
                 }
                 $codes[] = array(
-                    'code'=>$cd
+                    'code'=>$cd,
+                    'points'=>$points
                 );
             }
             $this->site_model->add_tbl_batch('codes',$codes);
