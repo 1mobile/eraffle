@@ -6,7 +6,7 @@ class Codes extends CI_Controller {
     }
     public function index(){
         $data = $this->syter->spawn('codes');
-        $th = array('ID','Code','Redeemer Email','Redeemer Name','Redeem Date','Reg Date');
+        $th = array('ID','Code','Points','Redeemer Email','Redeemer Name','Redeem Date','Reg Date');
         $data['code'] = site_list_table('codes','code_id','codes-tbl',$th,'codes/search_form');
         $data['page_title'] = fa('fa-tags')." Codes";
         $data['load_js'] = 'eraffle/codes';
@@ -46,6 +46,7 @@ class Codes extends CI_Controller {
                 $json[$res->code_id] = array(
                     "code_id"=>$res->code_id,   
                     "title"=>ucwords(strtoupper($res->code)),   
+                    "points"=>$res->points,   
                     "subtitle"=>$res->email,   
                     "name"=>$res->name,   
                     "caption"=>($res->datetime == ""? "" : sql2Date($res->datetime)),
