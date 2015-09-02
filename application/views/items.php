@@ -10,6 +10,22 @@
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+		
+		<?php
+            if(isset($css))
+                echo $css;
+        ?>
+        <?php
+            if(isset($add_css)){
+                if(is_array($add_css)){
+                    foreach ($add_css as $path) {
+                        echo "<link href='".base_url().$path."' rel='stylesheet'>\n";
+                    }
+                }
+                else
+                    echo "<link href='".base_url().$add_css."' rel='stylesheet'>\n";
+            }
+        ?>
 		<link href="<?php echo base_url(); ?>css/fb/styles.css" rel="stylesheet">
 		<link rel="stylesheet" href='<?php echo base_url(); ?>css/eraffle.css'>
 	</head>
@@ -43,10 +59,10 @@
                         <a href="#" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Add Entry</a>
                       </li>
                       <li>
-                        <a href="/eraffle/redeem"><span class="badge">Redeem Prize</span></a>
+                        <a href="redeem_prize"><span class="badge">Redeem Prize</span></a>
                       </li>
 					   <li>
-                        <a href="/eraffle/codes/how_to">How to Claim Prize</a>
+                        <a href="how_to">How to Claim Prize</a>
                       </li>
                     </ul>
 					</nav>
@@ -66,22 +82,17 @@
                                   		<div class="form-style-6">
 											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
 											<hr>
-											<h1> Raffle Entry</h1>
-											<form method="POST" action="/eraffle/codes	/redeem">
-											<select name="area" required>
-											   <?php 
-													foreach($areas as $area){ 
-														$area_name = $area->name;
-														$area_loc = $area->area;
-														echo "<option name='area_opt' value= '".$area->id."'> $area_name , $area_loc </option>";
-													} 
-												?>
-											</select>
-											<input type="text" name="name" placeholder="Name" required />
-											<input type="email" name="emailaddress" placeholder="Email Address" required />
-											<input type="text" name="rafflecode5" placeholder="Raffle Code" required />
-											<input type="submit" value="Send" />
-											</form>
+											<h1>Redeem Prize</h1>
+									<?php 
+									
+									if(isset($msg) && !empty($msg)){
+				echo "<h2>$msg</h2>";
+			}
+                        if(isset($code))
+                            echo $code; 
+							
+						
+                    ?>
 										</div>
                                 </div>
 
@@ -128,6 +139,28 @@
 	<!-- script references -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/fb/bootstrap.min.js"></script>
+		
+		 <?php
+            if(isset($js))
+                echo $js;
+				
+        ?> 
+        <?php 
+            if(isset($add_js)){
+                if(is_array($add_js)){
+                    foreach ($add_js as $path) {
+                        echo '<script src="'.base_url().$path.'" type="text/javascript"  language="JavaScript"></script>';
+                    }
+                }
+                else
+                     echo '<script src="'.base_url().$add_js.'" type="text/javascript"  language="JavaScript"></script>';
+            }
+        ?> 
 		<script src="<?php echo base_url(); ?>js/fb/scripts.js"></script>
+		<?php
+		if(isset($load_js))
+		$this->load->view('js/'.$load_js);
+		
+		?>
 	</body>
 </html>

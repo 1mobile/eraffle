@@ -279,5 +279,16 @@ class Site_model extends CI_Model{
 			$result = $query->result();
 			return $result;
 	}
+	
+	public function get_settings($name)
+	{
+		$this->db->select('*');
+		$this->db->from('settings');
+		$this->db->where('name', $name);
+			$this->db->order_by('id desc');
+			$query = $this->db->get();
+			$result = $query->result();
+			return $result[0]->value;
+	}
 }
 ?>

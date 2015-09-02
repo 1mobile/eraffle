@@ -44,6 +44,8 @@ $route['login'] = "site/login";
 # RAFFLE #
 	$route['codes'] = "eraffle/codes";
 	$route['codes/(:any)'] = "eraffle/codes/$1";
+	$route['redeem'] = "eraffle/redeem";
+	$route['redeem/(:any)'] = "eraffle/redeem/$1";
 	$route['points'] = "eraffle/points";
 	$route['points/(:any)'] = "eraffle/points/$1";
 	$route['items'] = "eraffle/items";

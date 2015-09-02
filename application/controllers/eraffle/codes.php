@@ -134,9 +134,27 @@ class Codes extends CI_Controller {
     }
 	
     public function send_confirm_mail($code=null){
-        $this->load->library('My_PHPMailer');
         $error = "";
         if($code != ""){
+            $items = $this->site_model->get_tbl('codes',array('code'=>$code));
+            $res = $items[0];
+			$rec_name = $res->name;
+			$subject = "Code ".$code ;
+			$value =  $this->site_model->get_settings('RaffleEntrySuccess');
+			$body = str_replace('$code',$code,$value);
+			$headers = 'From: RaffleEntry@1mobile.com';
+            $this->send_mail($res->email, $rec_name ,$subject,$body,$headers);
+          
+        }
+        else{
+            $error = "Nothing to send";
+        }
+    }
+	
+	   public function send_mail($to='', $rec_name = '', $subject='', $body=''){
+        $this->load->library('My_PHPMailer');
+        $error = "";
+        if($to != ""){
             $mail = new PHPMailer();
             $mail->IsSMTP(); // we are going to use SMTP
             $mail->SMTPAuth   = true; // enabled SMTP authentication
@@ -147,17 +165,14 @@ class Codes extends CI_Controller {
             $mail->Password   = "sw0rdf!sh"; //"testmail00000"; //"password";            // password in GMail
             $mail->SetFrom('rey.tejada17@gmail.com', '1mobile Raffle');  //Who is sending the email
 
-            $items = $this->site_model->get_tbl('codes',array('code'=>$code));
-            $res = $items[0];
-
-            $mail->Subject = "Code ".$code;
-            $mail->MsgHTML("Code# ".$code." is on Redeemed.");
+            $mail->Subject = $subject;
+            $mail->MsgHTML($body);
             $mail->AltBody  = "To view the message, please use an HTML compatible email viewer.";
-            $mail->AddAddress($res->email, ucwords($res->name));
-			$subject = "Code ".$code ;
-			$body = "Code# ".$code." was successfully validated.";
+            $mail->AddAddress($to, ucwords($rec_name));
+	/*		$subject = "Code ".$code ;
+			$body = "Code# ".$code." was successfully validated.";*/
 			$headers = 'From: RaffleEntry@1mobile.com';
-            mail($res->email,$subject,$body,$headers);
+            mail($to,$subject,$body,$headers);
           
 		  if(!$mail->Send()){
                 $error = $mail->ErrorInfo;
@@ -173,6 +188,7 @@ class Codes extends CI_Controller {
             $error = "Nothing to send";
         }
     }
+	
     public function generate($num=0){
         if($num > 0){
             $codes = array();

@@ -40,13 +40,13 @@
 					<nav class="collapse navbar-collapse" role="navigation">
                   	                   <ul class="nav navbar-nav">
                       <li>
-                        <a href="raffle_form" role="button" ><i class="glyphicon glyphicon-plus"></i> Add Entry</a>
+                        <a href="/eraffle/codes/raffle_form" role="button" ><i class="glyphicon glyphicon-plus"></i> Add Entry</a>
                       </li>
                       <li>
                         <a href="#"><span class="badge">Redeem Prize</span></a>
                       </li>
 					  <li>
-                        <a href="how_to">How to Claim Prize</a>
+                        <a href="/eraffle/codes/how_to">How to Claim Prize</a>
                       </li>
                     </ul>
 					</nav>
@@ -67,7 +67,7 @@
 											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
 											<hr>
 											<h1> Redeem Prize</h1>
-											<form method="POST" action="/eraffle/codes/redeem">
+											<form method="POST" action="/eraffle/redeem/items">
 												<input type="email" name="emailaddress" placeholder="Email Address" required />
 												<input type="submit" value="Send" />
 											</form>

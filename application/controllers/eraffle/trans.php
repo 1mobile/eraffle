@@ -112,7 +112,7 @@ class Trans extends CI_Controller {
         $msg = "";
         $curr_points = 0;
         if($this->input->post('curr_points'))
-            $curr_points = $this->input->post('curr_points');
+           $curr_points = $this->input->post('curr_points');
         
         $totals = $this->total_redeem_cart(false);
         if($totals['qtys'] == 0){
