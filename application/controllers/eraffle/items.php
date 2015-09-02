@@ -5,7 +5,7 @@ class Items extends CI_Controller {
         $this->load->helper('eraffle/items_helper');           
     }
     public function index(){
-        $data = $this->syter->spawn('points');
+        $data = $this->syter->spawn('items');
         $th = array('ID','Item Code','Item Name','Points','Inactive','');
         $data['code'] = site_list_table('items','item_id','items-tbl',$th,'items/search_form',true,'list');
         $data['page_title'] = fa('fa-archive')." Items";
@@ -57,6 +57,7 @@ class Items extends CI_Controller {
     }
     public function form($id=null){
         $data = $this->syter->spawn('items');
+        $data['page_title'] = fa('fa-archive').' Items';
         $res = array();
         if($id != ""){
             $args['items.item_id'] = $id;

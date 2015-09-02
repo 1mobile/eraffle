@@ -48,8 +48,14 @@ $route['login'] = "site/login";
 	$route['points/(:any)'] = "eraffle/points/$1";
 	$route['items'] = "eraffle/items";
 	$route['items/(:any)'] = "eraffle/items/$1";
+	$route['areas'] = "eraffle/areas";
+	$route['areas/(:any)'] = "eraffle/areas/$1";
 	$route['trans'] = "eraffle/trans";
 	$route['trans/(:any)'] = "eraffle/trans/$1";
+	$route['settings'] = "eraffle/settings";
+	$route['settings/(:any)'] = "eraffle/settings/$1";
+	$route['raffle'] = "eraffle/raffle";
+	$route['raffle/(:any)'] = "eraffle/raffle/$1";
 
 # USER #
 	$route['user'] = "core/user";

@@ -6,13 +6,18 @@
 
 $nav = array();
 $nav['dashboard'] = array('title'=>'<i class="fa fa-tachometer"></i> Dashboard','path'=>'dashboard','exclude'=>0);
+$nav['raffle'] = array('title'=>'<i class="fa fa-circle-thin"></i> Raffle Draw','path'=>'raffle','exclude'=>0);
 	$transNavs['redeem'] = array('title'=>'Redeem','path'=>'trans/redeem','exclude'=>0);
 	$transNavs['redeem_list'] = array('title'=>'Redeems List','path'=>'trans/redeem_list','exclude'=>0);
 $nav['trans'] = array('title'=>'<i class="fa fa-random"></i> <span>Transactions</span>','path'=>$transNavs,'exclude'=>0);
 $nav['codes'] = array('title'=>'<i class="fa fa-tags"></i> <span>Codes</span>','path'=>'codes','exclude'=>0);
 $nav['points'] = array('title'=>'<i class="fa fa-dot-circle-o"></i> <span>Email Points</span>','path'=>'points','exclude'=>0);
-$nav['items'] = array('title'=>'<i class="fa fa-archive"></i> <span>Items</span>','path'=>'items','exclude'=>0);
-$nav['config'] = array('title'=>'<i class="fa fa-building-o"></i> <span>Company</span>','path'=>'setup','exclude'=>0);
+	$setup['items'] = array('title'=>'Items','path'=>'items','exclude'=>0);
+	$setup['area'] = array('title'=>'Areas','path'=>'areas','exclude'=>0);
+$nav['maintenance'] = array('title'=>'<i class="fa fa-archive"></i> <span>Maintenance</span>','path'=>$setup,'exclude'=>0);
+	$config['general'] = array('title'=>'General','path'=>'settings','exclude'=>0);
+	$config['company'] = array('title'=>'Company','path'=>'setup','exclude'=>0);
+$nav['configuration'] = array('title'=>'<i class="fa fa-gears"></i> <span>Settings</span>','path'=>$config,'exclude'=>0);
 ///ADMIN CONTROL////////////////////////////////
 // $nav['setup'] = array('title'=>'<i class="fa fa-building-o"></i> Setup','path'=>'setup','exclude'=>0);
 // $nav['setup'] = array('title'=>'<i class="fa fa-building-o"></i> Setup','path'=>'setup','exclude'=>0);
