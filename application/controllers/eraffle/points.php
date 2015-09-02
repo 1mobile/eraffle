@@ -36,7 +36,7 @@ class Points extends CI_Controller {
         // if($this->input->post('datetime')){
         //     $args['DATE(codes.datetime) = date('.date2Sql($this->input->post('datetime')).')'] = array('use'=>'where','val'=>"",'third'=>false);
         // }
-        $select = "codes.email,codes.name,count(code) as points";
+        $select = "codes.email,codes.name,sum(points) as points";
         $count = $this->site_model->get_tbl('codes',$args,array('datetime'=>'desc'),null,true,$select,'email',null,true);
         $page = paginate('codes/get_codes',$count,$total_rows,$pagi);
         $items = $this->site_model->get_tbl('codes',$args,array('points'=>'desc'),null,true,$select,'email',$page['limit']);
@@ -92,7 +92,7 @@ class Points extends CI_Controller {
         $res = array();
         $curr_points = 0;
         if($email != ""){
-            $select = "codes.email,codes.name,count(code) as points";
+            $select = "codes.email,codes.name,sum(points) as points";
             $args['codes.email'] = $email;
             $items = $this->site_model->get_tbl('codes',$args,array('points'=>'desc'),null,true,$select,'email');
             $pos_points = 0;

@@ -125,6 +125,19 @@ function iSetObj($obj,$name,$noneText=null){
     }
     else return $noneText;
 }
+function iGetObj($obj,$code,$name,$value,$noneText=null){
+    $text = null;
+    foreach ($obj as $res) {
+        if($res->$code == $name){
+            $text = $res->$value;
+            break;
+        }
+    }
+    if($text != null)
+        return $text;
+    else 
+        return $noneText;
+}
 
 function iSet($ar,$name,$noneText=null,$equal=null){
     if(isset($ar[$name])){

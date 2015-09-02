@@ -6,7 +6,7 @@ class Codes extends CI_Controller {
     }
     public function index(){
         $data = $this->syter->spawn('codes');
-        $th = array('ID','Code','Redeemer Email','Redeemer Name','Redeem Date','Reg Date');
+        $th = array('ID','Code','Points','Redeemer Email','Redeemer Name','Redeem Date','Reg Date');
         $data['code'] = site_list_table('codes','code_id','codes-tbl',$th,'codes/search_form');
         $data['page_title'] = fa('fa-tags')." Codes";
         $data['load_js'] = 'eraffle/codes';
@@ -46,6 +46,7 @@ class Codes extends CI_Controller {
                 $json[$res->code_id] = array(
                     "code_id"=>$res->code_id,   
                     "title"=>ucwords(strtoupper($res->code)),   
+                    "points"=>$res->points,   
                     "subtitle"=>$res->email,   
                     "name"=>$res->name,   
                     "caption"=>($res->datetime == ""? "" : sql2Date($res->datetime)),
@@ -61,16 +62,16 @@ class Codes extends CI_Controller {
     }
     public function redeem(){
 
-         $code = $this->input->post('rafflecode5');
-         $email = $this->input->post('emailaddress');
-         $name = $this->input->post('name');
-         $ip = $this->input->post('ip');
-		 $area = $this->input->post('area');
-	//	 print_r($area);die();
- /*
-        $email = 'rey.tejada01@gmail.com';
-        $name = 'Rey Tejada';
-        $ip = '192.168.10.90';*/
+        $code = $this->input->post('rafflecode5');
+        $email = $this->input->post('emailaddress');
+        $name = $this->input->post('name');
+        $ip = $this->input->post('ip');
+		$area = $this->input->post('area');
+    	 //	 print_r($area);die();
+         /*
+            $email = 'rey.tejada01@gmail.com';
+            $name = 'Rey Tejada';
+            $ip = '192.168.10.90';*/
 
         $args['codes.code'] = $code;
         $result = $this->site_model->get_tbl('codes',$args);
@@ -188,8 +189,8 @@ class Codes extends CI_Controller {
             $error = "Nothing to send";
         }
     }
-	
-    public function generate($num=0){
+
+    public function generate($num=0,$points=1){
         if($num > 0){
             $codes = array();
             for ($i=0; $i < $num; $i++) { 
@@ -202,7 +203,8 @@ class Codes extends CI_Controller {
                     }
                 }
                 $codes[] = array(
-                    'code'=>$cd
+                    'code'=>$cd,
+                    'points'=>$points
                 );
             }
             $this->site_model->add_tbl_batch('codes',$codes);

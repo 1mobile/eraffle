@@ -181,7 +181,7 @@ class Trans extends CI_Controller {
         } 
         $args = array();
         $args['codes.email'] = $email;
-        $select = "count(code) as points";
+        $select = "sum(points) as points";
         $result = $this->site_model->get_tbl('codes',$args,array(),null,true,$select,'email');
         // echo $this->site_model->db->last_query();
         $pos_points = 0;
