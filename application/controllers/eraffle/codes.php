@@ -1,4 +1,5 @@
  <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Codes extends CI_Controller {
     public function __construct(){
         parent::__construct();
@@ -56,10 +57,12 @@ class Codes extends CI_Controller {
         }
         echo json_encode(array('rows'=>$json,'page'=>$page['code'],'post'=>$post));
     }
+	
     public function search_form(){
         $data['code'] = codeSearchForm();
         $this->load->view('load',$data);
     }
+	
     public function redeem(){
 
         $code = $this->input->post('rafflecode5');
@@ -105,13 +108,13 @@ class Codes extends CI_Controller {
 			$data['status'] = "Congratulations $name! You have successfully submitted an entry with the code: ".$code;
 			$data['confirm'] = "A confirmation email was sent to ".$email. ". Thank you for joining our promo!";
 
-			$this->load->view('whole',$data);
+			$this->load->view('message',$data);
 		}else{
 
 			$data['status'] = "";
 			$data['confirm'] = $error;
 
-			$this->load->view('whole',$data);
+			$this->load->view('message',$data);
 		}
     }
 	
@@ -141,9 +144,13 @@ class Codes extends CI_Controller {
             $res = $items[0];
 			$rec_name = $res->name;
 			$subject = "Code ".$code ;
-			$value =  $this->site_model->get_settings('RaffleEntrySuccess');
+			$value =  $this->site_model->get_settings('code_redeem_msg');
+			$av_points = $this->get_email_points(false,$res->email);
 			$body = str_replace('$code',$code,$value);
+			$body = str_replace('$available_points',$av_points,$body);
 			$headers = 'From: RaffleEntry@1mobile.com';
+			
+
             $this->send_mail($res->email, $rec_name ,$subject,$body,$headers);
           
         }
@@ -152,7 +159,7 @@ class Codes extends CI_Controller {
         }
     }
 	
-	   public function send_mail($to='', $rec_name = '', $subject='', $body=''){
+	public function send_mail($to='', $rec_name = '', $subject='', $body=''){
         $this->load->library('My_PHPMailer');
         $error = "";
         if($to != ""){
@@ -278,5 +285,41 @@ class Codes extends CI_Controller {
 	public function confirm_form(){
         $data['code'] = codeConfirmForm();
         $this->load->view('load',$data);
+    }
+	
+	 public function get_email_points($asJson=true,$email=null){
+       
+        if($this->input->post('email')){
+            $email = $this->input->post('email');
+        } 
+        $args = array();
+        $args['codes.email'] = $email;
+        $select = "sum(points) as points";
+        $result = $this->site_model->get_tbl('codes',$args,array(),null,true,$select,'email');
+        // echo $this->site_model->db->last_query();
+        $pos_points = 0;
+        if(count($result) > 0){
+            $res = $result[0];
+            $pos_points = $res->points;            
+        }
+
+        $nargs['redeems.email'] = $email;
+        $nelect = "sum(total_points) as points";
+        $nesult = $this->site_model->get_tbl('redeems',$nargs,array(),null,true,$nelect,'email');
+        $neg_points = 0;
+        if(count($nesult) > 0){
+            $nes = $nesult[0];
+            $neg_points = $nes->points;            
+        }
+
+        $curr_points = $pos_points - $neg_points;
+        if($curr_points < 0)
+            $curr_points = 0;
+        if($asJson){
+            echo json_encode(array('curr_points'=>$curr_points));
+        }
+        else{
+            return $curr_points;
+        }
     }
 }

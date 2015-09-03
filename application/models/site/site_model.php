@@ -284,7 +284,7 @@ class Site_model extends CI_Model{
 	{
 		$this->db->select('*');
 		$this->db->from('settings');
-		$this->db->where('name', $name);
+		$this->db->where('code', $name);
 			$this->db->order_by('id desc');
 			$query = $this->db->get();
 			$result = $query->result();

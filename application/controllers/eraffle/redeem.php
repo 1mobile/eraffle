@@ -1,5 +1,7 @@
  <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Redeem extends CI_Controller {
+ include_once (dirname(__FILE__) . "/codes.php");
+
+class Redeem extends Codes {
     public function __construct(){
         parent::__construct();
         $this->load->helper('eraffle/redeem_helper');               
@@ -44,15 +46,14 @@ class Redeem extends CI_Controller {
 	}
 	
 	
-	
-	public function get_email_points($asJson=true,$email=null){
+  public function get_email_points($asJson=true,$email=null){
        
         if($this->input->post('email')){
             $email = $this->input->post('email');
         } 
         $args = array();
         $args['codes.email'] = $email;
-        $select = "count(code) as points";
+        $select = "sum(points) as points";
         $result = $this->site_model->get_tbl('codes',$args,array(),null,true,$select,'email');
         // echo $this->site_model->db->last_query();
         $pos_points = 0;
@@ -130,12 +131,13 @@ class Redeem extends CI_Controller {
             $select = "codes.email,codes.name,codes.area_id,count(code) as points";
             $args['codes.email'] = $email;
             $items = $this->site_model->get_tbl('codes',$args,array('points'=>'desc'),null,true,$select,'email');
-			$select_area = "areas.area,areas.name";
+			$select_area = "areas.id,areas.area,areas.name";
 			$args_a['id'] =  $items[0]->area_id;
 			$area = $this->site_model->get_tbl('areas',$args_a,array(),null,true,$select_area,'id');
 			$output['entry_name'] = $items[0]->name;
 			$output['company_name'] =  $area[0]->name;
 			$output['area_name'] =  $area[0]->area;
+			$output['area_id'] =  $area[0]->id;
             return $output;
         }  
     }
@@ -148,15 +150,17 @@ class Redeem extends CI_Controller {
         $curr_points = $this->get_email_points(false,$this->input->post('email')); // get latest available points
         
         $totals = $this->total_redeem_cart(false);
-
+        $profile = $this->get_profile($this->input->post('email'));
         if($totals['qtys'] == 0){
             $error = 1;
             $msg = "Add Items.";
         }
+		
         if($totals['points'] > $curr_points){
             $error = 1;
             $msg = "Email has insufficient points.";
         }
+		
         if($error == 0){
             $next_ref = $this->trans_model->get_next_ref(REDEEM_TRANS);
             $user = sess('user');
@@ -169,6 +173,7 @@ class Redeem extends CI_Controller {
                 'name'=>$this->input->post('name'),
                 'by'=>$user['id'],
                 'total_points'=>$totals['points'],
+				'area_id'=>$profile['area_id'],
                 'datetime'=>$now
             );
             $id = $this->site_model->add_tbl('redeems',$items);
@@ -184,6 +189,13 @@ class Redeem extends CI_Controller {
             }
             $this->site_model->add_tbl_batch('redeem_items',$redeem_items);
             $msg = 'Items Successfully Redeemed';
+			
+			$subject = "Redemption Successful!";
+			$value =  $this->site_model->get_settings('item_redeem_msg');
+			$body = str_replace('$used_points',$totals['points'],$value);
+			$body = str_replace('$available_points',$this->get_email_points(false,$this->input->post('email')),$body);
+			$headers = 'From: RaffleEntry@1mobile.com';
+            $this->send_mail($this->input->post('email'), $this->input->post('name') ,$subject,$body,$headers);
             site_alert($msg,'success');
         }
         echo json_encode(array('error'=>$error,'msg'=>$msg));
@@ -213,4 +225,5 @@ class Redeem extends CI_Controller {
             return $json;
         }
     }    
+
 }

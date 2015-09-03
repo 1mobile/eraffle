@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $company_name; ?></title>
+        <title>Code to Joy<?php //echo $company_name; ?></title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <link rel="icon" type="image/png" href="<?php echo base_url(); ?>favicon-192x192.png" sizes="192x192">
         <link rel="icon" type="image/png" href="<?php echo base_url(); ?>favicon-160x160.png" sizes="160x160">
