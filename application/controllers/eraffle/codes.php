@@ -84,21 +84,28 @@ class Codes extends CI_Controller {
             $res = $result[0];
             $now = $this->site_model->get_db_now('sql');
 			//var_dump($res->email);
-            if($res->email == "" && strlen($res->email) == 0){
-                $items = array(
-                    'email'=>$email,
-                    'name'=>$name,
-                    'ip'=>$ip,
-					'area_id'=>$area,
-                    'datetime'=>$now
-                );
-                $this->site_model->update_tbl('codes','code',$items,$code);
-                $this->send_confirm_mail($code);
-            }
-            else{
-                $error = "The code you have provided is redeemed already";
-								
-            }
+			$select = "codes.area_id,codes.datetime";
+			$args2['codes.email'] = $email;
+			$items = $this->site_model->get_tbl('codes',$args2,array('datetime'=>'asc'),null,true,$select,'',1);
+			if(count($items) > 0 && $area != $items[0]->area_id){
+				$error = "The location provided mismatch the previous entries.";
+			}else{			
+				if($res->email == "" && strlen($res->email) == 0){
+					$items = array(
+						'email'=>$email,
+						'name'=>$name,
+						'ip'=>$ip,
+						'area_id'=>$area,
+						'datetime'=>$now
+					);
+					$this->site_model->update_tbl('codes','code',$items,$code);
+					$this->send_confirm_mail($code);
+				}
+				else{
+					$error = "The code you have provided is redeemed already";
+									
+				}
+			}
         }
         else{
             $error = "The code you have provided is invalid";

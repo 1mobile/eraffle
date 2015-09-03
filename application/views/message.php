@@ -66,7 +66,7 @@
                                   		<div class="form-style-6">
 											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
 											<hr>
-											<h1>Success!</h1>
+											<h1>Raffle Entry</h1>
 												<h3 style='font:25px sans-serif;'> <?php echo $status; ?></h3>
 												<p style='font: 14px sans-serif;'><?php echo  $confirm; ?></p>
 												<?php 

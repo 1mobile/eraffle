@@ -56,13 +56,13 @@
 					<nav class="collapse navbar-collapse" role="navigation">
                   	                   <ul class="nav navbar-nav">
                       <li>
-                        <a href="#" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Add Entry</a>
+                        <a href="/eraffle/codes/raffle_form" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Add Entry</a>
                       </li>
                       <li>
-                        <a href="redeem_prize"><span class="badge">Redeem Prize</span></a>
+                        <a href="/eraffle/redeem"><span class="badge">Redeem Prize</span></a>
                       </li>
 					   <li>
-                        <a href="how_to">How to Claim Prize</a>
+                        <a href="/eraffle/how_to">How to Claim Prize</a>
                       </li>
                     </ul>
 					</nav>
