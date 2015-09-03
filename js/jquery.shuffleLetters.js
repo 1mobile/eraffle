@@ -90,7 +90,7 @@
 					options.callback(el);
 					return;
 				}
-				$.playSound(baseUrl+'img/beep');
+				// $.playSound(baseUrl+'img/beep');
 				// All the work gets done here
 				for(i=Math.max(start,0); i < len; i++){
 

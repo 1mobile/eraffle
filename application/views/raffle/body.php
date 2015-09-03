@@ -22,12 +22,12 @@
             }
         ?> 
         <script type="text/javascript">
-            $(function() {
-                $(".center").center();
-                $(window).resize(function() {
-                    $(".center").center();
-                });
-            });
+            // $(function() {
+            //     $(".center").center();
+            //     $(window).resize(function() {
+            //         $(".center").center();
+            //     });
+            // });
         </script>
 
     

@@ -1595,4 +1595,23 @@
 			}
 		});
 	}
+	$.fn.blinkEffect = function(options) {
+	        var defaults = {
+	            delay: 500
+	        };
+	        var options = $.extend(defaults, options);
+
+	        return this.each(function() {
+	            var obj = $(this);
+	            console.log(obj.css('color'));
+	            setInterval(function() {
+	                if ($(obj).css("color") == "rgb(255, 255, 255)") {
+	                    $(obj).css('color', '#FF00FF');
+	                }
+	                else {
+	                    $(obj).css('color', 'rgb(255, 255, 255)');
+	                }
+	            }, options.delay);
+	        });
+	    }
 }(jQuery));

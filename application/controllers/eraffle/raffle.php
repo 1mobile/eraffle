@@ -9,7 +9,7 @@ class Raffle extends CI_Controller {
         // $codes = $this->get_valid_codes(false);
         $chars = $this->raffle_chars();
         $data['code'] = rafflePage($chars);
-        $data['add_js'] = 'js/jquery.shuffleLetters.js';
+        $data['add_js'] = array('js/jquery.shuffleLetters.js','js/pulse.js');
         $data['load_js'] = 'eraffle/raffle';
         $data['use_js'] = 'raffleJs';
         $this->load->view('raffle',$data);
@@ -20,7 +20,7 @@ class Raffle extends CI_Controller {
         $result = $this->site_model->get_tbl('codes',$args);
         
         foreach ($result as $res) {
-            $codes[]=$res->code;    
+            $codes[]=$res;    
         }
         if($asJson)
             echo json_encode($codes);
@@ -33,9 +33,20 @@ class Raffle extends CI_Controller {
     }    
     public function get_winner(){
         $codes = $this->get_valid_codes(false);
+        $winner = array();
+        while (empty($winner)) {
+            $draw = $this->draw($codes);
+            $valid = filter_var( $draw->email, FILTER_VALIDATE_EMAIL );
+            if($valid){
+                $winner = $draw;
+            }
+        }
+        echo json_encode($winner);
+    }
+    public function draw($codes){
         $min = 0;
         $max = max(array_keys($codes));;
         $key = rand($min,$max);
-        echo $codes[$key];
+        return $codes[$key];
     }
 }
