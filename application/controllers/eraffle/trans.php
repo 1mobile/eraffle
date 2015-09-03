@@ -233,4 +233,64 @@ class Trans extends CI_Controller {
             return $json;
         }
     }    
+    public function item_redeems(){
+        $data = $this->syter->spawn('trans');
+        $th = array('EMAIL','NAME','ITEM','QTY','AREA','DATE');
+        $data['code'] = site_list_table('redeems','redeem_id','redeems-tbl',$th,'trans/item_redeems_search_form');
+        $data['load_js'] = 'eraffle/trans';
+        $data['use_js'] = 'redeemItemListJS';
+        $data['page_no_padding'] = true;
+        // $data['sideBarHide'] = true;
+        $this->load->view('page',$data);
+    }
+    public function get_redeem_item_list($id=null,$asJson=true){
+        $pagi = null;
+        $total_rows = 20;
+        if($this->input->post('pagi'))
+            $pagi = $this->input->post('pagi');
+        $post = array();
+        $args = array();
+        if(count($this->input->post()) > 0){
+            $post = $this->input->post();
+        }
+        
+        if($this->input->post('email')){
+             $args['redeems.email'] = array('use'=>'or_like','val'=>$this->input->post('email'));
+        }
+        if($this->input->post('area')){
+             $args['areas.name'] = array('use'=>'or_like','val'=>$this->input->post('area'));
+             $args['areas.area'] = array('use'=>'or_like','val'=>$this->input->post('area'));
+        }
+        if($this->input->post('item')){
+             $args['items.item_name'] = array('use'=>'or_like','val'=>$this->input->post('item'));
+        }
+        $select = "redeem_items.*,items.item_name,redeems.email,redeems.name,redeems.datetime,areas.name as company, areas.area as location";
+        $join['items'] = array('content'=>'redeem_items.item_id = items.item_id');
+        $join['redeems'] = array('content'=>'redeem_items.redeem_id = redeems.redeem_id');
+        $join['areas'] = array('content'=>'redeems.area_id = areas.id');
+        $count = $this->site_model->get_tbl('redeem_items',$args,array('redeems.datetime'=>'desc'),$join,true,$select,null,null,true);
+        $page = paginate('codes/get_codes',$count,$total_rows,$pagi);
+        $items = $this->site_model->get_tbl('redeem_items',$args,array('datetime'=>'desc'),$join,true,$select,null,$page['limit']);
+        $query = $this->site_model->db->last_query();
+
+        $json = array();
+        if(count($items) > 0){
+            foreach ($items as $res) {
+                $json[$res->redeem_item_id] = array(
+                    "email"=>$res->email,   
+                    "name"=>$res->name,   
+                    "item"=>$res->item_name,   
+                    "qty"=>$res->qty,   
+                    "area"=>$res->company." ".$res->location,   
+                    "datetime"=>sql2Date($res->datetime),
+                    // "reg_date"=>($res->reg_date == ""? "" : sql2Date($res->reg_date))
+                );
+            }
+        }
+        echo json_encode(array('rows'=>$json,'page'=>$page['code'],'post'=>$post));
+    }
+    public function item_redeems_search_form(){
+        $data['code'] = redeemItemsearchForm();
+        $this->load->view('load',$data);
+    }
 }

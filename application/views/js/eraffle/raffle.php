@@ -7,11 +7,12 @@ $(document).ready(function(){
 				$('#raffle-txt').shuffleLetters({
 					"text": winner.code,
 					"fps": 10,
-					"step": 10,
+					"step": 150,
 					callback:function(){
 			            var el = $('#congrats-txt');
 						el.text('Congratulations to '+winner.email);
 						el.blinkEffect();
+						$.playSound(baseUrl+'img/congrats_song');
 					}
 				});
 

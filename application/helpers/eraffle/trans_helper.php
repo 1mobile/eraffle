@@ -13,6 +13,23 @@ function searchForm($post=array()){
 	$CI->make->eForm();
 	return $CI->make->code();
 }
+function redeemItemsearchForm($post=array()){
+	$CI =& get_instance();
+	$CI->make->sForm();
+		$CI->make->sDivRow();
+			$CI->make->sDivCol(6);
+				$CI->make->input('Email','email',null,null);
+			$CI->make->eDivCol();
+			$CI->make->sDivCol(6);
+				$CI->make->input('Area','area',null,null);
+			$CI->make->eDivCol();
+			$CI->make->sDivCol(6);
+				$CI->make->input('Item','item',null,null);
+			$CI->make->eDivCol();
+    	$CI->make->eDivRow();
+	$CI->make->eForm();
+	return $CI->make->code();
+}
 function redeemForm($emails=array(),$cart=array()){
 	$CI =& get_instance();
 	$CI->make->sForm('trans/redeem_db',array('id'=>'redeem_form'));

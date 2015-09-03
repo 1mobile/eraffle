@@ -69,6 +69,12 @@ $(document).ready(function(){
 				$('#total-qtys').number(data.qtys,2);
 			},'json')
 		}
+	<?php elseif($use_js == 'redeemItemListJS'): ?>
+		$('#redeems-tbl').rTable({
+			loadFrom	: 	 'trans/get_redeem_item_list',
+			noEdit		: 	 true,
+			noAdd		: 	 true			 	
+		});
 	<?php endif; ?>
 });
 </script>
