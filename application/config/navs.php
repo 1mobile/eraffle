@@ -6,7 +6,7 @@
 
 $nav = array();
 $nav['dashboard'] = array('title'=>'<i class="fa fa-tachometer"></i> Dashboard','path'=>'dashboard','exclude'=>0);
-$nav['raffle'] = array('title'=>'<i class="fa fa-circle-thin"></i> Raffle Draw','path'=>'raffle','exclude'=>0);
+$nav['raffle'] = array('title'=>'<i class="fa fa-circle-thin"></i> Raffle Draw','path'=>'raffle/set_raffle','exclude'=>0);
 // 	$transNavs['redeem'] = array('title'=>'Redeem','path'=>'trans/redeem','exclude'=>0);
 // 	$transNavs['redeem_list'] = array('title'=>'Redeems List','path'=>'trans/redeem_list','exclude'=>0);
 // $nav['trans'] = array('title'=>'<i class="fa fa-random"></i> <span>Transactions</span>','path'=>$transNavs,'exclude'=>0);
