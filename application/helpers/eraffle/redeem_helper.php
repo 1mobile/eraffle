@@ -28,7 +28,7 @@ function redeemForm($email,$name,$points,$cart=array()){
 				$CI->make->input('Location','location',$name['company_name'].', '.$name['area_name'],null,array('readonly'=>''),fa('fa-dot-circle-o') );
 			$CI->make->eDivCol();
 			$CI->make->sDivCol(4,'left');
-				$CI->make->number('Current Points','curr_points',$points,null,array('readonly'=>''),fa('fa-dot-circle-o'));
+				$CI->make->number("Current Points",'curr_points',"$points",null,array('readonly'=>''),fa('fa-dot-circle-o'));
 			$CI->make->eDivCol();
     	$CI->make->eDivRow();
 		$CI->make->sDivRow();

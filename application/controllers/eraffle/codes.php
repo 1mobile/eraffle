@@ -137,6 +137,7 @@ class Codes extends CI_Controller {
 	
 	public function redeem_prize(){
 			$data['areas'] = $this->site_model->get_areas();
+
 			$this->load->view('redeem',$data);
     }
 	

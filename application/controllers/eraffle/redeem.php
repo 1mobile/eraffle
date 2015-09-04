@@ -20,7 +20,7 @@ class Redeem extends Codes {
 		$output = $this->get_profile($emailaddress);
 		//print_r($name);die();
 		if(!empty($output)){
-			if($av_points > 0){
+		//	if($av_points > 0){
 			 // print_r($this->get_items());die();
 				$data = $this->syter->spawn('trans');
 				$redeem_cart = array();
@@ -32,9 +32,9 @@ class Redeem extends Codes {
 			$data['use_js'] = 'redeemJS';
 			$data['paper'] = true;
 			$this->load->view('items',$data);
-			}else{
-			
-			}
+		//	}else{
+		//		$this->load->view('items',$data);
+		//	}
 		}else{
 			$data['msg'] = 'You do not have any valid entries.';
 			$this->load->view('items',$data);
@@ -146,7 +146,7 @@ class Redeem extends Codes {
         $error = 0;
         $msg = "";
         $curr_points = 0;
-       
+        $lists = "";
         $curr_points = $this->get_email_points(false,$this->input->post('email')); // get latest available points
         
         $totals = $this->total_redeem_cart(false);
@@ -179,6 +179,8 @@ class Redeem extends Codes {
             $id = $this->site_model->add_tbl('redeems',$items);
             $this->trans_model->save_ref(REDEEM_TRANS,$next_ref);
             $redeem_items = array();
+			$ctr_cart = count($cart);
+			$ctr = 1;
             foreach ($cart as $line => $row) {
                 $redeem_items[] = array(
                     'redeem_id'=>$id,
@@ -186,6 +188,17 @@ class Redeem extends Codes {
                     'qty'=>$row['qty'],
                     'points'=>$row['points'],
                 );
+				
+				$args2['items.item_id'] = $row['item'];
+				$select = "items.item_name,items.item_id";
+				$items = $this->site_model->get_tbl('items',$args2,array(),null,true,$select);
+				$lists .= $row['qty']." ".$items[0]->item_name;
+				
+				if($ctr_cart > $ctr){
+					$lists .= ", ";
+				}
+				
+				$ctr++;
             }
             $this->site_model->add_tbl_batch('redeem_items',$redeem_items);
             $msg = 'Items Successfully Redeemed';
@@ -194,6 +207,7 @@ class Redeem extends Codes {
 			$value =  $this->site_model->get_settings('item_redeem_msg');
 			$body = str_replace('$used_points',$totals['points'],$value);
 			$body = str_replace('$available_points',$this->get_email_points(false,$this->input->post('email')),$body);
+			$body = str_replace('$items_list',$lists,$body);
 			$headers = 'From: RaffleEntry@1mobile.com';
             $this->send_mail($this->input->post('email'), $this->input->post('name') ,$subject,$body,$headers);
             site_alert($msg,'success');
