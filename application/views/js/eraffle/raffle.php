@@ -8,6 +8,7 @@ $(document).ready(function(){
 			$.post(baseUrl+'raffle/get_winner',formData,function(data){
 				var winner = data;
 				var delay = parseFloat(btn.attr('delay'));
+				console.log(data);
 				$('#raffle-txt').shuffleLetters({
 					"text": winner.code,
 					"fps": 10,

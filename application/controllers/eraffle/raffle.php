@@ -19,8 +19,8 @@ class Raffle extends CI_Controller {
     public function index(){
         $data = $this->syter->spawn('raffle');
         // $codes = $this->get_valid_codes(false);
-        $range = $_GET['range'];
-        $delay = $_GET['delay'];
+        $range = $this->site_model->get_settings('raffle_range');	
+        $delay = $this->site_model->get_settings('raffle_delay');	
         $chars = $this->raffle_chars();
         $data['code'] = rafflePage($range,$delay);
         $data['add_js'] = array('js/jquery.shuffleLetters.js','js/pulse.js');

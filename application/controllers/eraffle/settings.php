@@ -9,7 +9,11 @@ class Settings extends CI_Controller {
         $data = $this->syter->spawn('configurations');
         $data['page_title'] = fa('fa-cogs').' General Settings';
         $res = $this->site_model->get_tbl('settings');
-        $data['code'] = settingsForm($res);
+		$delay = $this->site_model->get_settings('raffle_delay');
+		$range = $this->site_model->get_settings('raffle_range');
+        $data['code'] = settingsForm($res,$delay,$range);
+		$data['add_css'] = array('css/datepicker/datepicker.css','css/daterangepicker/daterangepicker-bs3.css');
+        $data['add_js'] = array('js/plugins/datepicker/bootstrap-datepicker.js','js/plugins/daterangepicker/daterangepicker.js');
         $data['load_js'] = 'eraffle/settings';
         $data['use_js'] = 'settingsJs';
         // $data['page_no_padding'] = true;
