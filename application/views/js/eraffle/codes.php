@@ -4,17 +4,28 @@ $(document).ready(function(){
 		$('#codes-tbl').rTable({
 			loadFrom	: 	 'codes/get_codes',
 			noEdit		: 	 true,
-			noAdd		: 	 true,
+			// noAdd		: 	 true,
+			addBtnTxt		: '<i class="fa fa-upload"></i> Upload',
 			add			: 	 function(){
-								goTo('customers/profile');
+								goTo('codes/upload_codes');
 							 },
-			edit		: 	 function(id){
-								goTo('customers/profile/'+id);
-							 }					 	
 		});
-	<?php endif; ?>
-	
-		<?php if($use_js == 'codesconfirmJS'): ?>
+	<?php elseif($use_js == 'codesUploadJS'): ?>
+		$('#dl-temp-excel').click(function(){
+			goTo('codes/upload_template_excel');
+			return false;
+		});		
+		$('#uploader-file').click(function(){
+			var noError = $('#upload_form').rOkay({
+							goSubmit:false
+			});
+			if(noError){
+				$(this).goLoad2();
+				$('#upload_form').submit();				
+			}
+			return false;
+		});		
+	<?php elseif($use_js == 'codesconfirmJS'): ?>
 		$('#codes-tbl').rTable({
 			loadFrom	: 	 'codes/get_codes_confirm',
 			noEdit		: 	 true,

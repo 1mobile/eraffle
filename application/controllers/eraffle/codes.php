@@ -7,7 +7,7 @@ class Codes extends CI_Controller {
     }
     public function index(){
         $data = $this->syter->spawn('codes');
-        $th = array('ID','Code','Points','Redeemer Email','Redeemer Name','Redeem Date','Reg Date');
+        $th = array('ID','Code','Points','Email','Name','Entry Date','Reg Date');
         $data['code'] = site_list_table('codes','code_id','codes-tbl',$th,'codes/search_form');
         $data['page_title'] = fa('fa-tags')." Codes";
         $data['load_js'] = 'eraffle/codes';
@@ -16,6 +16,116 @@ class Codes extends CI_Controller {
         $data['sideBarHide'] = true;
         $this->load->view('page',$data);
     }    
+    
+    public function upload_codes(){  
+        $data = $this->syter->spawn('codes');
+        $data['page_title'] = fa('fa-upload').' Upload Codes';
+        $data['code'] = codeUploadForm();
+        $data['load_js'] = 'eraffle/codes';
+        $data['use_js'] = 'codesUploadJS';
+        $this->load->view('page',$data);
+    }
+    public function upload_template_excel(){
+        $this->load->library('Excel');
+        $sheet = $this->excel->getActiveSheet();
+        $filename = 'Upload Code Template';
+        $rc = 1;
+        $sheet->getCell('A'.$rc)->setValue('code');
+        $sheet->getCell('B'.$rc)->setValue('points');
+
+        ob_end_clean();
+        header('Content-type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
+        header('Cache-Control: max-age=0');
+        $objWriter = PHPExcel_IOFactory::createWriter($this->excel, 'Excel2007');
+        $objWriter->save('php://output');
+    }    
+    public function upload_excel_codes(){
+        $image = null;
+        // if(is_uploaded_file($_FILES['fileUpload']['tmp_name'])) {
+        //     $image = file_get_contents($_FILES['fileUpload']['tmp_name']);
+        // }
+        $ext = 'xls';
+        $msg = "";
+        $fpath = "uploads/codes/";
+
+        if(is_uploaded_file($_FILES['fileUpload']['tmp_name'])){
+            $info = pathinfo($_FILES['fileUpload']['name']);
+            $date= $this->site_model->get_db_now();
+            $newname = date('YmdHis',strtotime($date) ).".".$ext;
+            // $newname = date('Ymd',strtotime($date) ).".".$ext;
+            
+            if (!file_exists($fpath)) {
+                mkdir($fpath, 0777, true);
+            }
+
+            $target = $fpath.$newname;
+
+            if(!move_uploaded_file( $_FILES['fileUpload']['tmp_name'], $target)){
+                $msg = "Excel File Upload failed";
+                site_alert($msg,'error');
+            }
+            else{
+                $read = $this->read_excel_codes($target);
+                if($read){
+                    $msg = "Excel File Upload Success";
+                    site_alert($msg,'success');
+                    header("Refresh:0; url=".base_url()."codes/upload_codes");
+                }
+                else{
+                    $msg = "Excel File Upload Failed";
+                    site_alert($msg,'error');
+                    header("Refresh:0; url=".base_url()."codes/upload_codes");
+                }
+            }   
+        }
+    }   
+    public function read_excel_codes($target){
+        // echo $target;   
+        $this->load->library('Excel');
+        try {
+            $inputFileType = PHPExcel_IOFactory::identify($target);
+            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $objPHPExcel = $objReader->load($target);
+        } catch(Exception $e) {
+            site_alert('Error loading file "'.pathinfo($target,PATHINFO_BASENAME).'": '.$e->getMessage(),'error');
+            return false;
+        }
+        $sheet = $objPHPExcel->getSheet(0); 
+        $highestRow = $sheet->getHighestRow(); 
+        $highestColumn = $sheet->getHighestColumn();
+        $items = array();
+        for ($row = 1; $row <= $highestRow; $row++){ 
+            if($row > 1){
+                $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+                                                NULL,
+                                                TRUE,
+                                                FALSE);
+                $items[] = array('code'=>$rowData[0][0],'points'=>$rowData[0][1]);
+            }
+        }
+        if(count($items) > 0){
+            $error = 0;
+            foreach ($items as $value) {
+                $args['codes.code'] = $value['code'];
+                $count = $this->site_model->get_tbl('codes',$args,array(),null,true,'*',null,null,true);
+                if($count > 0){
+                    $error = 1;
+                    break;
+                }
+            }
+            if($error == 0){
+                $this->site_model->add_tbl_batch('codes',$items);
+                return true;                
+            }
+            else{
+                site_alert('Some Codes had already been uploaded','error');
+                unlink($target);
+                return false;
+            }
+        }
+       
+    } 
     public function get_codes($id=null,$asJson=true){
         $pagi = null;
         $total_rows = 20;
@@ -185,7 +295,7 @@ class Codes extends CI_Controller {
             $mail->MsgHTML($body);
             $mail->AltBody  = "To view the message, please use an HTML compatible email viewer.";
             $mail->AddAddress($to, ucwords($rec_name));
-	/*		$subject = "Code ".$code ;
+	   /*		$subject = "Code ".$code ;
 			$body = "Code# ".$code." was successfully validated.";*/
 			$headers = 'From: RaffleEntry@1mobile.com';
             mail($to,$subject,$body,$headers);
@@ -295,7 +405,7 @@ class Codes extends CI_Controller {
         $this->load->view('load',$data);
     }
 	
-	 public function get_email_points($asJson=true,$email=null){
+	public function get_email_points($asJson=true,$email=null){
        
         if($this->input->post('email')){
             $email = $this->input->post('email');

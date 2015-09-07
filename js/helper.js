@@ -1193,7 +1193,9 @@
 			beforeLoad 		:	function(response){},
 			afterLoad  		:	function(response){},
 			add 			: 	function(response){},
-			edit 			: 	function(response){}
+			addBtnTxt		: 	"",
+			edit 			: 	function(response){},
+			editBtnTxt		: 	"",
 		}, options);
 		var table = opt.tbl;
 		
@@ -1358,9 +1360,13 @@
 			$('#appends-btns').remove();
 			table.before('<div class="row" id="appends-btns"><div class="col-md-12 text-right"><div class="btn-group" id="rTable-btns"></div></div></div>');
 			if(!opt.noAdd){	
+				var btnTxt = '<i class="fa fa-plus fa-fw"></i> ADD';
+				console.log(opt.addBtnTxt);
+				if(opt.addBtnTxt != "")
+					btnTxt = opt.addBtnTxt;
 				$('<button/>')
 					.attr({'id':'rtable-add-btn','class':'btn-success btn'})
-					.html('<i class="fa fa-plus fa-fw"></i> ADD')
+					.html(btnTxt)
 					.appendTo('#rTable-btns')
 					.click(function(e){
 						opt.add.call(e);
