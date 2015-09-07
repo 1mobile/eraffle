@@ -21,10 +21,10 @@ function redeemItemsearchForm($post=array()){
 				$CI->make->input('Email','email',null,null);
 			$CI->make->eDivCol();
 			$CI->make->sDivCol(6);
-				$CI->make->input('Area','area',null,null);
+				$CI->make->companyAreasDrop('Area','area',null,' - Select Area - ');
 			$CI->make->eDivCol();
 			$CI->make->sDivCol(6);
-				$CI->make->input('Item','item',null,null);
+				$CI->make->companyItemsDrop('Item','item',null,' - Select Item - ');
 			$CI->make->eDivCol();
     	$CI->make->eDivRow();
 	$CI->make->eForm();

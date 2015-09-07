@@ -236,7 +236,7 @@ class Trans extends CI_Controller {
     public function item_redeems(){
         $data = $this->syter->spawn('trans');
         $th = array('EMAIL','NAME','ITEM','QTY','AREA','DATE');
-        $data['code'] = site_list_table('redeems','redeem_id','redeems-tbl',$th,'trans/item_redeems_search_form');
+        $data['code'] = site_list_table('redeems','redeem_id','redeems-tbl',$th,'trans/item_redeems_search_form',false,'list','Item Redeems');
         $data['load_js'] = 'eraffle/trans';
         $data['use_js'] = 'redeemItemListJS';
         $data['page_no_padding'] = true;
@@ -258,11 +258,13 @@ class Trans extends CI_Controller {
              $args['redeems.email'] = array('use'=>'or_like','val'=>$this->input->post('email'));
         }
         if($this->input->post('area')){
-             $args['areas.name'] = array('use'=>'or_like','val'=>$this->input->post('area'));
-             $args['areas.area'] = array('use'=>'or_like','val'=>$this->input->post('area'));
+             // $args['areas.name'] = array('use'=>'or_like','val'=>$this->input->post('area'));
+             // $args['areas.area'] = array('use'=>'or_like','val'=>$this->input->post('area'));
+             $args['areas.id'] = array('use'=>'where','val'=>$this->input->post('area'));
         }
         if($this->input->post('item')){
-             $args['items.item_name'] = array('use'=>'or_like','val'=>$this->input->post('item'));
+             $args['items.item_id'] = array('use'=>'where','val'=>$this->input->post('item'));
+             // $args['items.item_name'] = array('use'=>'or_like','val'=>$this->input->post('item'));
         }
         $select = "redeem_items.*,items.item_name,redeems.email,redeems.name,redeems.datetime,areas.name as company, areas.area as location";
         $join['items'] = array('content'=>'redeem_items.item_id = items.item_id');

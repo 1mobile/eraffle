@@ -1489,6 +1489,44 @@ class Make{
 				$str .= $this->select($label,$nameID,$opts,$value,$selectParams);
 			if($this->returnitize($params)) return $str; else $this->code .= $str;
 	    }
+	    function companyAreasDrop($label=null,$nameID=null,$value=null,$placeholder=null,$params=array()){
+	    	$CI =& get_instance();
+	 		$CI->load->model('site/site_model');
+	    	$str = "";
+				$selectParams = $params;
+				if(!isset($selectParams['return']))
+					$selectParams['return'] = true;
+
+				$results=$CI->site_model->get_custom_val('areas',array('name, area, id'),'inactive',0,true);
+
+				$opts  = array();
+				if($placeholder != null)
+					$opts[$placeholder] = '';
+				foreach ($results as $res) {
+					$opts[$res->name." ".$res->area] = array('value'=>$res->id);
+				}
+				$str .= $this->select($label,$nameID,$opts,$value,$selectParams);
+			if($this->returnitize($params)) return $str; else $this->code .= $str;
+	    }
+	        function companyItemsDrop($label=null,$nameID=null,$value=null,$placeholder=null,$params=array()){
+	        	$CI =& get_instance();
+	     		$CI->load->model('site/site_model');
+	        	$str = "";
+	    			$selectParams = $params;
+	    			if(!isset($selectParams['return']))
+	    				$selectParams['return'] = true;
+
+	    			$results=$CI->site_model->get_custom_val('items',array('item_name,item_id'),'inactive',0,true);
+
+	    			$opts  = array();
+	    			if($placeholder != null)
+	    				$opts[$placeholder] = '';
+	    			foreach ($results as $res) {
+	    				$opts[$res->item_name] = array('value'=>$res->item_id);
+	    			}
+	    			$str .= $this->select($label,$nameID,$opts,$value,$selectParams);
+	    		if($this->returnitize($params)) return $str; else $this->code .= $str;
+	        }
 	    function itemsDrop($label=null,$nameID=null,$value=null,$placeholder=null,$params=array()){
 	    	$CI =& get_instance();
 	 		$CI->load->model('site/site_model');

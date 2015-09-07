@@ -1353,6 +1353,7 @@
 			var search = table.attr('search-url');
 			var multi = table.attr('listyle-multi');
 			var style = table.attr('listyle');
+			var toExcel = table.attr('to-excel');
 			var filter = loadData.post;
 			$('#appends-btns').remove();
 			table.before('<div class="row" id="appends-btns"><div class="col-md-12 text-right"><div class="btn-group" id="rTable-btns"></div></div></div>');
@@ -1504,8 +1505,21 @@
 					grid.addClass('active');
 				}
 				$('#rTable-btns').after(styleDiv);
-
-
+			}
+			if(toExcel != 'no'){
+				var styleDiv = $('<div/>').addClass('btn-group').css({'margin-right':'10px'});
+				var list = $('<button/>')
+					.attr({'id':'rtable-list-btn','class':'btn listyle-btns btn-success'})
+					.html('<i class="fa fa-download fa-fw"></i> Excel')
+					.appendTo(styleDiv)
+					.click(function(e){
+						table.removeData();
+						table.table2excel({
+							name: toExcel,
+						});
+						return false;
+					});
+				$('#rTable-btns').after(styleDiv);
 			}	
 		}
 		function disableEnableBtns(table){

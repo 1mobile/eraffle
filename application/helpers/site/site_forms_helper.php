@@ -1,5 +1,5 @@
 <?php
-function site_list_table($datatable=null,$column_id=null,$id=null,$th=array(),$searchUrl=null,$multiple=false,$listTypeDefault='list'){
+function site_list_table($datatable=null,$column_id=null,$id=null,$th=array(),$searchUrl=null,$multiple=false,$listTypeDefault='list',$toExcel=null){
     $CI =& get_instance();
     $CI->make->sBox('primary',array('style'=>'-webkit-border-radius: 0px;-moz-border-radius: 0px;border-radius: 0px;'));
         $CI->make->sBoxBody(array('class'=>'no-padding'));  
@@ -9,8 +9,15 @@ function site_list_table($datatable=null,$column_id=null,$id=null,$th=array(),$s
             $targs['listyle'] = $listTypeDefault;
             $targs['listyle-multi'] = 'no';                
             if($multiple){
-                $targs['listyle-multi'] = 'yes';                
+                $targs['listyle-multi'] = 'yes'; 
             }
+                
+            $targs['to-excel'] = 'no';                
+            if($toExcel != ""){
+                $targs['to-excel'] = $toExcel;   
+            }
+
+
             $CI->make->sTable($targs);
                 $CI->make->sRow(array('id'=>'rtable-ths'));
                     foreach ($th as $txt) {

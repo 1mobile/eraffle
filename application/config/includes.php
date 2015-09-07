@@ -46,6 +46,7 @@ $jsFiles[] = "js/plugins/timepicker/bootstrap-timepicker.js";
 $jsFiles[] = "js/plugins/datetimepicker/js/moment.js";
 $jsFiles[] = "js/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js";
 $jsFiles[] = "js/chosen.jquery.min.js";
+$jsFiles[] = "js/jquery.table2excel.js";
 
 
 
