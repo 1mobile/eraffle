@@ -41,7 +41,17 @@ function rafflePage($range,$delay){
 							$CI->make->eDiv();
 						$CI->make->eDivCol();
 			    	$CI->make->eDivRow();
-			    	$CI->make->button(fa('fa-circle-thin').' DRAW!!!',array('class'=>'btn-block','id'=>'draw','range'=>$range,'delay'=>$delay),'success');
+					$CI->make->sDivRow();
+						$CI->make->sDivCol(4);
+					    	$CI->make->button(fa('fa-circle-thin').' DRAW!!!',array('class'=>'btn-block','id'=>'draw','range'=>$range,'delay'=>$delay),'success');
+						$CI->make->eDivCol();
+						$CI->make->sDivCol(4);
+					    	$CI->make->button(fa('fa-circle-thin').' PAUSE!!!',array('class'=>'btn-block','id'=>'pause','range'=>$range,'delay'=>$delay),'warning');
+						$CI->make->eDivCol();
+						$CI->make->sDivCol(4);
+					    	$CI->make->button(fa('fa-circle-thin').' STOP!!!',array('class'=>'btn-block','id'=>'stop','range'=>$range,'delay'=>$delay),'danger');
+						$CI->make->eDivCol();
+			    	$CI->make->eDivRow();
 				$CI->make->eDiv();
 			$CI->make->eDivCol();
 		$CI->make->eDivRow();
