@@ -46,10 +46,10 @@
                         <a href="/eraffle/redeem"><span class="badge">Redeem Prize</span></a>
                       </li>
 					  <li>
-                        <a href="#">How to Claim Prize</a>
+                        <a href="/eraffle/codes/how_to">How to Claim Prize</a>
                       </li>
 					  <li>
-                        <a href="/eraffle/codes/mechanics">Promo Mechanics</a>
+                        <a href="#">Promo Mechanics</a>
                       </li>
                     </ul>
 					</nav>
@@ -66,12 +66,12 @@
                           
                           <!-- main col right -->
                                 <div class="panel panel-default"> 
-                                  		<div class="form-style-6">
-											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
-											<hr>
-											<h1>How to claim your prize</h1>
-											<p>Stand by for more infos....</p>
-										</div>
+                              
+											<!--<object data="<?php echo base_url(); ?>uploads/mechanics.pdf" type="application/pdf" width="100%" height="800px">
+											<a href="<?php echo base_url(); ?>uploads/mechanics.pdf">Promo Mechanics.pdf</a>
+											</object>-->
+											
+											<embed src="<?php echo base_url(); ?>uploads/simple_mechanics.pdf" width="100%" height="100%" style='max-height:600px;'>
                                 </div>
 
                        </div><!--/row-->

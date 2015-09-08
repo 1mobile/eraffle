@@ -48,6 +48,9 @@
 					  <li>
                         <a href="/eraffle/codes/how_to">How to Claim Prize</a>
                       </li>
+					  <li>
+                        <a href="/eraffle/codes/mechanics">Promo Mechanics</a>
+                      </li>
                     </ul>
 					</nav>
                 </div>

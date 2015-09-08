@@ -198,7 +198,7 @@ class Codes extends CI_Controller {
 			$args2['codes.email'] = $email;
 			$items = $this->site_model->get_tbl('codes',$args2,array('datetime'=>'asc'),null,true,$select,'',1);
 			if(count($items) > 0 && $area != $items[0]->area_id){
-				$error = "The location provided mismatch the previous entries.";
+				$error = "<font color='red'>The location provided mismatch the previous entries.</font>";
 			}else{			
 				if($res->email == "" && strlen($res->email) == 0){
 					$items = array(
@@ -212,13 +212,13 @@ class Codes extends CI_Controller {
 					$this->send_confirm_mail($code);
 				}
 				else{
-					$error = "The code you have provided is redeemed already";
+					$error = "<font color='red'>The code you have provided is redeemed already </font>";
 									
 				}
 			}
         }
         else{
-            $error = "The code you have provided is invalid";
+            $error = "<font color='red'>The code you have provided is invalid</font>";
         }
 		if($error == ""){
 			$name = ucwords($name);
@@ -253,6 +253,10 @@ class Codes extends CI_Controller {
 	
 	public function how_to(){
 			$this->load->view('how_to',$data);
+    }
+	
+	public function mechanics(){
+			$this->load->view('mechanics',$data);
     }
 	
     public function send_confirm_mail($code=null){

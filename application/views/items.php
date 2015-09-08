@@ -62,7 +62,10 @@
                         <a href="/eraffle/redeem"><span class="badge">Redeem Prize</span></a>
                       </li>
 					   <li>
-                        <a href="/eraffle/how_to">How to Claim Prize</a>
+                        <a href="/eraffle/codes/how_to">How to Claim Prize</a>
+                      </li>
+					  <li>
+                        <a href="/eraffle/codes/mechanics">Promo Mechanics</a>
                       </li>
                     </ul>
 					</nav>
