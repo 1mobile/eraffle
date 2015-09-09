@@ -1,4 +1,4 @@
- <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Codes extends CI_Controller {
     public function __construct(){
@@ -228,10 +228,16 @@ class Codes extends CI_Controller {
 			$this->load->view('message',$data);
 		}else{
 
-			$data['status'] = "";
-			$data['confirm'] = $error;
+			// $data['status'] = "";
+			// $data['confirm'] = $error;
 
-			$this->load->view('message',$data);
+			// $this->load->view('message',$data);
+			$data['areas'] = $this->site_model->get_areas();
+			$data['error'] = $error;
+			$data['name'] = ucwords($name);
+			$data['email'] = $email;
+			$data['code'] = $code;
+			$this->load->view('form',$data);
 		}
     }
 	
