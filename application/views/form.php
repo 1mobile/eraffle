@@ -80,11 +80,12 @@
 													} 
 												?>
 											</select>
-											<input type="text" name="name" placeholder="Name" required />
-											<input type="email" name="emailaddress" placeholder="Email Address" required />
-											<input type="text" name="rafflecode5" placeholder="Raffle Code" required />
+											<input type="text" name="name" placeholder="Name" value="<?php if(isset($name) && !empty($name)){ echo $name; } ?>" required />
+											<input type="email" name="emailaddress" placeholder="Email Address" value="<?php if (isset($email) && !empty($email)) {  echo $email; } ?>" required />
+											<input type="text" name="rafflecode5" placeholder="Raffle Code" value="<?php if(isset($code) && !empty($code)) { echo $code; } ?>" required />
 											<input type="submit" value="Send" />
 											</form>
+											<?php if(isset($error) && !empty($error)) {  echo "<div name='error' class='e_error'>$error</div>";}  ?>
 										</div>
                                 </div>
 

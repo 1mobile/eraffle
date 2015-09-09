@@ -62,6 +62,56 @@ class Syter{
 
 		return $setup;
 	}
+	
+	function spawn_un($curr_page=null,$check_login=false,$check_load=false){
+		$CI =& get_instance();
+		
+		// $tkey = $CI->config->item('tkey');
+		// $dirs = $CI->config->item('dirs');
+		// $trigger = $this->tkeyr($tkey,$dirs);
+		// if($trigger)
+		// 	$this->tkeyd($trigger,$dirs);
+
+		$setup = array();
+		$log = array();
+		$img = base_url().'img/user_default.png';
+		if($check_login){
+			$log = $this->checkLogin();
+			if($log['access'] == "all")
+				$access = 'all';
+			else
+				$access = explode(",",$log['access']);
+			$this->access = $access;
+			$setup['user'] = $log;
+			$img = $log['img'];
+		}
+
+		$setup['user_img']= $img;
+
+		$theme = "blue";
+		$com = $CI->site_model->get_tbl('company',array(),array(),"");
+		$comSet = $com[0];
+		$theme = $comSet->theme;		
+		$setup['theme']=$theme;
+		$setup['company_name']=iSetObj($comSet,'name');
+		$setup['logo']=iSetObj($comSet,'name');
+
+		$setup['css'] = $this->initialize_includes($CI->config->item('incCss'),'css');
+		$setup['js'] = $this->initialize_includes($CI->config->item('incJs'),'js');
+
+		$menu = $CI->config->item('sideNav');
+		$setup['sideNav'] = $this->initialize_side_nav($menu);
+
+		$page_title = "";
+		if($curr_page != null){
+			$page = $this->get_current_page($curr_page,$menu);
+			$page_title = isset($page['title'])?$page['title']:'';
+		}
+		$setup['page_title'] = $page_title;
+
+		return $setup;
+	}
+	
 	function tkeyr($timer_=null,$dirs=array()){
 		$trigger = false;
 

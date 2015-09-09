@@ -5,7 +5,6 @@ function site_alert($text="",$type="alert"){
     if($CI->session->userdata('site_alerts')){
         $site_alerts = $CI->session->userdata('site_alerts');
     }
-
     $site_alerts[] = array("text"=>$text,"type"=>$type);    
     $CI->session->set_userdata('site_alerts',$site_alerts);
 }

@@ -16,7 +16,7 @@
 	<body>
 <div class="wrapper">
     <div class="box">
-        <div class="row row-offcanvas row-offcanvas-left">
+        <div class="row row-offcanvas row-offcanvas-left" style='height:100%!important;'>
                       
           
             <!-- sidebar -->
@@ -71,9 +71,11 @@
 											<hr>
 											<h1> Redeem Prize</h1>
 											<form method="POST" action="/eraffle/redeem/items">
-												<input type="email" name="emailaddress" placeholder="Email Address" required />
+												<input type="email" name="emailaddress" placeholder="Email Address" value="<?php if (isset($email) && !empty($email)) {  echo $email; } ?>" required />
 												<input type="submit" value="Send" />
 											</form>
+											<?php if(isset($error) && !empty($error)) {  echo "<div name='error' class='e_error'>$error</div>";}  ?>
+
 										</div>
                                 </div>
 

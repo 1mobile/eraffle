@@ -133,3 +133,12 @@ hr{
 .col-md-4{
 width:100%!important;
 }
+
+div.e_error{
+
+    text-align: center;
+    margin-top: 4%;
+    BACKGROUND-COLOR: #E56666;
+    PADDING: 10px;
+
+}

@@ -1,4 +1,4 @@
- <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  include_once (dirname(__FILE__) . "/codes.php");
 
 class Redeem extends Codes {
@@ -20,24 +20,27 @@ class Redeem extends Codes {
 		$output = $this->get_profile($emailaddress);
 		//print_r($name);die();
 		if(!empty($output)){
-		//	if($av_points > 0){
+			if($av_points > 0){
 			 // print_r($this->get_items());die();
-				$data = $this->syter->spawn('trans');
+				$data = $this->syter->spawn_un('trans');
 				$redeem_cart = array();
 						sess_initialize('redeem_cart',$redeem_cart);
 			
-			$data['code'] = redeemForm($emailaddress,$output,$av_points,$redeem_cart);
-			$data['page_subtitle'] = "Redeem";
-			$data['load_js'] = 'eraffle/trans';
-			$data['use_js'] = 'redeemJS';
-			$data['paper'] = true;
-			$this->load->view('items',$data);
-		//	}else{
-		//		$this->load->view('items',$data);
-		//	}
+				$data['code'] = redeemForm($emailaddress,$output,$av_points,$redeem_cart);
+				$data['page_subtitle'] = "Redeem";
+				$data['load_js'] = 'eraffle/trans';
+				$data['use_js'] = 'redeemJS';
+				$data['paper'] = true;
+				$this->load->view('items',$data);
+			}else{
+				$data['error'] = "<font color='red'>You do not have available points for redemption.</font>";
+				$data['email'] = $emailaddress;
+				$this->load->view('redeem',$data);
+			}
 		}else{
-			$data['msg'] = 'You do not have any valid entries.';
-			$this->load->view('items',$data);
+			$data['error'] = "<font color='red'>You do not have any valid entries.</font>";
+			$data['email'] = $emailaddress;
+			$this->load->view('redeem',$data);
 		}
 	  }else{
 		header('Location: .');
@@ -130,14 +133,19 @@ class Redeem extends Codes {
         if($email != ""){
             $select = "codes.email,codes.name,codes.area_id,count(code) as points";
             $args['codes.email'] = $email;
+			
             $items = $this->site_model->get_tbl('codes',$args,array('points'=>'desc'),null,true,$select,'email');
+			
 			$select_area = "areas.id,areas.area,areas.name";
-			$args_a['id'] =  $items[0]->area_id;
-			$area = $this->site_model->get_tbl('areas',$args_a,array(),null,true,$select_area,'id');
+
+			if(isset($items[0]->area_id) && !empty($items[0]->area_id)){
+				$args_a['id'] =  $items[0]->area_id;
+				$area = $this->site_model->get_tbl('areas',$args_a,array(),null,true,$select_area,'id');
+				$output['company_name'] =  $area[0]->name;
+				$output['area_name'] =  $area[0]->area;
+				$output['area_id'] =  $area[0]->id;
+			}
 			$output['entry_name'] = $items[0]->name;
-			$output['company_name'] =  $area[0]->name;
-			$output['area_name'] =  $area[0]->area;
-			$output['area_id'] =  $area[0]->id;
             return $output;
         }  
     }
@@ -163,7 +171,6 @@ class Redeem extends Codes {
 		
         if($error == 0){
             $next_ref = $this->trans_model->get_next_ref(REDEEM_TRANS);
-            $user = sess('user');
             $cart = sess('redeem_cart');
             $now = $this->site_model->get_db_now('sql');
             $items = array(
@@ -171,17 +178,18 @@ class Redeem extends Codes {
                 'trans_type'=>REDEEM_TRANS,
                 'email'=>$this->input->post('email'),
                 'name'=>$this->input->post('name'),
-                'by'=>$user['id'],
+                'by'=>1,
                 'total_points'=>$totals['points'],
 				'area_id'=>$profile['area_id'],
                 'datetime'=>$now
             );
-            $id = $this->site_model->add_tbl('redeems',$items);
-            $this->trans_model->save_ref(REDEEM_TRANS,$next_ref);
+           $id = $this->site_model->add_tbl('redeems',$items);
+           $this->trans_model->save_ref(REDEEM_TRANS,$next_ref);
             $redeem_items = array();
 			$ctr_cart = count($cart);
 			$ctr = 1;
             foreach ($cart as $line => $row) {
+
                 $redeem_items[] = array(
                     'redeem_id'=>$id,
                     'item_id'=>$row['item'],
@@ -201,7 +209,9 @@ class Redeem extends Codes {
 				$ctr++;
             }
             $this->site_model->add_tbl_batch('redeem_items',$redeem_items);
-            $msg = 'Items Successfully Redeemed';
+			
+			$msg = 'Items Successfully Redeemed';
+			site_alert($msg,'success');
 			
 			$subject = "Redemption Successful!";
 			$value =  $this->site_model->get_settings('item_redeem_msg');
@@ -210,7 +220,9 @@ class Redeem extends Codes {
 			$body = str_replace('$items_list',$lists,$body);
 			$headers = 'From: RaffleEntry@1mobile.com';
             $this->send_mail($this->input->post('email'), $this->input->post('name') ,$subject,$body,$headers);
-            site_alert($msg,'success');
+
+			
+			
         }
         echo json_encode(array('error'=>$error,'msg'=>$msg));
     }
@@ -241,3 +253,4 @@ class Redeem extends Codes {
     }    
 
 }
+?>

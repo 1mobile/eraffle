@@ -10,13 +10,15 @@ $(document).ready(function(){
 		});
 	<?php elseif($use_js == 'redeemJS'): ?>
 		$('#save-btn').click(function(){
+
 			$("#redeem_form").rOkay({
 				btn_load		: 	$('#save-btn'),
 				bnt_load_remove	: 	true,
 				asJson			: 	true,
 				onComplete		:	function(data){
+				console.log(data);
 										if(data.error != 0 ){
-											rMsg(data.msg,'error');
+												rMsg(data.msg,'error');
 										}
 										else{
 											location.reload();
