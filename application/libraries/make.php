@@ -1283,7 +1283,7 @@ class Make{
 				$results=$CI->site_model->get_custom_val('items',array('*'),'inactive',0,true);
 				$opts  = array();
 				foreach ($results as $res) {
-					$opts["[".$res->item_code."] ".$res->item_name] = array('value'=>$res->item_id,'points'=>$res->points,'item_name' => $res->item_name);
+					$opts[$res->item_name." [".$res->item_code."] "] = array('value'=>$res->item_id,'points'=>$res->points,'item_name' => $res->item_name);
 				}
 				$str .= $this->select($label,$nameID,$opts,$value,$selectParams);
 			if($this->returnitize($params)) return $str; else $this->code .= $str;

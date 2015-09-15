@@ -21,12 +21,36 @@ $(document).ready(function(){
 												rMsg(data.msg,'error');
 										}
 										else{
-											location.reload();
+											swal({   title: "Success", 
+													 text: "You have successfully redeemed items. A proof of redemption was sent to your email!", 
+													 type: "success",   showCancelButton: false, 
+													 confirmButtonColor: "#00a65a", 
+													 confirmButtonText: "Okay", 
+													 closeOnConfirm: false },
+													 function(){  window.location.href= 'redeem' ;});
+											//location.reload();
 										}
 									}
 			});
 			return false;
 		});
+		
+		$('#qty').on('focus',function(){
+			if($(this).val().length <= 0){
+				$('select[name=item]').trigger("change");
+			}
+		}) 
+		
+		$('select[name=item]').on('change',function(){
+			$input = $('input[name=item_name]');
+			$optionSelected = $("option:selected",this);
+			$item = $optionSelected.attr('item_name');
+			if($input.length > 0){
+				$input.val($item);
+			}
+		})
+		
+		
 		$('#email').change(function(){
 			var sel = $(this).find(":selected");
 			var email = $(this).val();
@@ -39,7 +63,8 @@ $(document).ready(function(){
 		var formInputs = {
 			"item" 		:{"show":"#item","from":"#item"},
 			"points" 	:{"show":"#points","from":"#points"},
-			"qty" 		:{"show":"#qty","from":"#qty"}
+			"qty" 		:{"show":"#qty","from":"#qty"},
+			"item_name" :{"hide":"#item_name","from":"#item_name"}
 		};
 		$('#items-tbl').rWagon({
 			cart   		:  'redeem_cart',

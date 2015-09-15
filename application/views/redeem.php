@@ -12,6 +12,15 @@
 		<![endif]-->
 		<link href="<?php echo base_url(); ?>css/fb/styles.css" rel="stylesheet">
 		<link rel="stylesheet" href='<?php echo base_url(); ?>css/eraffle.css'>
+		<link rel="stylesheet" href='<?php echo base_url(); ?>css/responsiveSlide/responsiveslides.css'>
+		<!--<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+		<script src='<?php echo base_url(); ?>js/plugins/responsiveSlide/responsiveslides.min.js'></script>
+		<script> $(function () {
+    $("#rslides").responsiveSlides({
+        maxwidth: 800,
+        speed: 800
+    });
+});   </script>-->
 	</head>
 	<body>
 <div class="wrapper">
@@ -67,6 +76,13 @@
                           <!-- main col right -->
                                 <div class="panel panel-default"> 
                                   		<div class="form-style-6">
+										<!--	<ul class="rslides" id='rslides'>
+											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/1.jpg" width='80' alt=""></li>
+											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/2.jpg" width='80' alt=""></li>
+											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/3.jpg" width='80' alt=""></li>
+											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/4.jpg" width='80' alt=""></li>
+											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/5.jpg" width='80' alt=""></li>
+											</ul>-->
 											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
 											<hr>
 											<h1> Redeem Prize</h1>

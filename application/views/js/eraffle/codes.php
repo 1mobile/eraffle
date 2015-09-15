@@ -10,6 +10,7 @@ $(document).ready(function(){
 								goTo('codes/upload_codes');
 							 },
 		});
+		
 	<?php elseif($use_js == 'codesUploadJS'): ?>
 		$('#dl-temp-excel').click(function(){
 			goTo('codes/upload_template_excel');

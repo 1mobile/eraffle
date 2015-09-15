@@ -16,7 +16,7 @@
 	<body>
 <div class="wrapper">
     <div class="box">
-        <div class="row row-offcanvas row-offcanvas-left">
+        <div class="row row-offcanvas row-offcanvas-left" style='height:100%'>
                       
           
             <!-- sidebar -->

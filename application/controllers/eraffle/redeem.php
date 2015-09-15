@@ -8,7 +8,7 @@ class Redeem extends Codes {
     }
     public function index(){
 		$data['areas'] = $this->site_model->get_areas();
-		$this->load->view('redeem',$data);;
+			$this->load->view('redeem',$data);;
        // $this->load->view('page',$data);
     }    
  
@@ -18,9 +18,8 @@ class Redeem extends Codes {
 	  if(!empty($_POST['emailaddress'])){
 	  	$av_points = $this->get_email_points(false,$emailaddress);
 		$output = $this->get_profile($emailaddress);
-		//print_r($name);die();
-		if(!empty($output)){
-			if($av_points > 0){
+		if(!empty($output['entry_name'])){
+		//	if($av_points > 0){
 			 // print_r($this->get_items());die();
 				$data = $this->syter->spawn_un('trans');
 				$redeem_cart = array();
@@ -32,11 +31,11 @@ class Redeem extends Codes {
 				$data['use_js'] = 'redeemJS';
 				$data['paper'] = true;
 				$this->load->view('items',$data);
-			}else{
-				$data['error'] = "<font color='red'>You do not have available points for redemption.</font>";
-				$data['email'] = $emailaddress;
-				$this->load->view('redeem',$data);
-			}
+		//	}else{
+				// $data['error'] = "<font color='red'>You do not have available points for redemption.</font>";
+				// $data['email'] = $emailaddress;
+				// $this->load->view('items',$data);
+		//	}
 		}else{
 			$data['error'] = "<font color='red'>You do not have any valid entries.</font>";
 			$data['email'] = $emailaddress;
@@ -145,7 +144,12 @@ class Redeem extends Codes {
 				$output['area_name'] =  $area[0]->area;
 				$output['area_id'] =  $area[0]->id;
 			}
-			$output['entry_name'] = $items[0]->name;
+			
+			if(isset($items[0]->name) && !empty($items[0]->name)){
+				$output['entry_name'] = $items[0]->name;
+			}else{
+				$output['entry_name'] ='';
+			}
             return $output;
         }  
     }
@@ -197,10 +201,10 @@ class Redeem extends Codes {
                     'points'=>$row['points'],
                 );
 				
-				$args2['items.item_id'] = $row['item'];
-				$select = "items.item_name,items.item_id";
-				$items = $this->site_model->get_tbl('items',$args2,array(),null,true,$select);
-				$lists .= $row['qty']." ".$items[0]->item_name;
+				// $args2['items.item_id'] = $row['item'];
+				// $select = "items.item_name,items.item_id";
+			//	$items = $this->site_model->get_tbl('items',$args2,array(),null,true,$select);
+				$lists .= $row['qty']." ".$row['item_name'];
 				
 				if($ctr_cart > $ctr){
 					$lists .= ", ";
@@ -211,7 +215,7 @@ class Redeem extends Codes {
             $this->site_model->add_tbl_batch('redeem_items',$redeem_items);
 			
 			$msg = 'Items Successfully Redeemed';
-			site_alert($msg,'success');
+		//	site_alert($msg,'success');
 			
 			$subject = "Redemption Successful!";
 			$value =  $this->site_model->get_settings('item_redeem_msg');

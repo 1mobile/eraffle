@@ -7,10 +7,12 @@
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="<?php echo base_url(); ?>css/fb/bootstrap.min.css" rel="stylesheet">
+		 <link rel="stylesheet" href="<?php echo base_url(); ?>css/jquery-ui.css">
+		  <link rel="stylesheet" href="<?php echo base_url(); ?>css/sweetalert.css">
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		
+
 		<?php
             if(isset($css))
                 echo $css;
@@ -70,6 +72,13 @@
                     </ul>
 					</nav>
                 </div>
+				
+				<div id='dialog-message' style='display:none' title='Redemption Complete'>
+					<p>
+					<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+					Items were successfully redeemed!
+				  </p>
+				</div>
                 <!-- /top nav -->
               
                 <div class="padding">
@@ -140,9 +149,8 @@
   </div>
 </div>
 	<!-- script references -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-		<script src="<?php echo base_url(); ?>js/fb/bootstrap.min.js"></script>
-		
+
+
 		 <?php
             if(isset($js))
                 echo $js;
@@ -159,7 +167,24 @@
                      echo '<script src="'.base_url().$add_js.'" type="text/javascript"  language="JavaScript"></script>';
             }
         ?> 
+			<script src="<?php echo base_url(); ?>js/fb/bootstrap.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/fb/scripts.js"></script>
+		<script src="<?php echo base_url(); ?>js/sweetalert.min.js"></script>
+		<script>
+			 $(function() {
+			$( "#dialog-message" ).dialog({
+			  autoOpen: false,
+			  modal: true,
+			   create: function (event, ui) {
+        $(".ui-widget-header").hide();
+    },
+			  buttons: {
+				Ok: { id: 'close', text: 'Okay', click: function(){ $(this).dialog("close"); }, "class": "btn btn-success " }, 
+			  }, 
+			});
+		  });
+		</script>
 		<?php
 		if(isset($load_js))
 		$this->load->view('js/'.$load_js);

@@ -46,6 +46,7 @@ function redeemForm($email,$name,$points,$cart=array()){
 						$CI->make->sRow(array('id'=>'adds-row','style'=>'display:none;'));
 							$CI->make->sTd();
 								$CI->make->redeemItemsDrop(null,'item');
+								$CI->make->hidden('item_name','');
 							$CI->make->eTd();
 							$CI->make->sTd();
 								$CI->make->span('',array('id'=>'points-txt'));

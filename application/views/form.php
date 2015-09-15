@@ -12,6 +12,7 @@
 		<![endif]-->
 		<link href="<?php echo base_url(); ?>css/fb/styles.css" rel="stylesheet">
 		<link rel="stylesheet" href='<?php echo base_url(); ?>css/eraffle.css'>
+
 	</head>
 	<body>
 <div class="wrapper">
@@ -70,7 +71,7 @@
 											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
 											<hr>
 											<h1> Raffle Entry</h1>
-											<form method="POST" action="/eraffle/codes	/redeem">
+											<form method="POST"  name='r_entry' id='r_entry' action="/eraffle/codes/redeem" onsubmit="r_submit.disabled = true;">
 											<select name="area" required>
 											   <?php 
 													foreach($areas as $area){ 
@@ -83,7 +84,7 @@
 											<input type="text" name="name" placeholder="Name" value="<?php if(isset($name) && !empty($name)){ echo $name; } ?>" required />
 											<input type="email" name="emailaddress" placeholder="Email Address" value="<?php if (isset($email) && !empty($email)) {  echo $email; } ?>" required />
 											<input type="text" name="rafflecode5" placeholder="Raffle Code" value="<?php if(isset($code) && !empty($code)) { echo $code; } ?>" required />
-											<input type="submit" value="Send" />
+											<input type="submit" name='r_submit' value="Send" />
 											</form>
 											<?php if(isset($error) && !empty($error)) {  echo "<div name='error' class='e_error'>$error</div>";}  ?>
 										</div>
