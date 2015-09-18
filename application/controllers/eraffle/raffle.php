@@ -24,6 +24,7 @@ class Raffle extends CI_Controller {
         $chars = $this->raffle_chars();
         $data['code'] = rafflePage($range,$delay);
         $data['add_js'] = array('js/jquery.shuffleLetters.js','js/pulse.js');
+        $data['add_css'] = array('css/raffle_draw.css');
         $data['load_js'] = 'eraffle/raffle';
         $data['use_js'] = 'raffleJs';
         $this->load->view('raffle',$data);

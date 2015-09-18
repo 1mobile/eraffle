@@ -211,6 +211,16 @@
 			});	
 		}
 	});
+	$.fn.disabled = function(options){
+	        	var opt = 	$.extend({
+					dis 	: 	true,
+				}, options);
+
+				if(opt.dis)
+					this.attr("disabled", "disabled");
+				else
+					this.removeAttr("disabled");
+	}
 	$.fn.center = function() {
 	    this.css("position", "absolute");
 	    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) +
@@ -1624,7 +1634,7 @@
 	        return this.each(function() {
 	            var obj = $(this);
 	            console.log(obj.css('color'));
-	            setInterval(function() {
+	            var blinkEffectInterval = setInterval(function() {
 	                if ($(obj).css("color") == "rgb(255, 255, 255)") {
 	                    $(obj).css('color', '#FF00FF');
 	                }
