@@ -76,16 +76,19 @@
                           <!-- main col right -->
                                 <div class="panel panel-default"> 
                                   		<div class="form-style-6">
-										<!--	<ul class="rslides" id='rslides'>
-											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/1.jpg" width='80' alt=""></li>
-											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/2.jpg" width='80' alt=""></li>
-											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/3.jpg" width='80' alt=""></li>
-											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/4.jpg" width='80' alt=""></li>
-											  <li><img src="<?php echo base_url(); ?>img/responsiveslide/5.jpg" width='80' alt=""></li>
-											</ul>-->
-											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
+											<div class='unslide'>
+												<ul class="rslides" id='rslides'>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/0.jpg" style='width: 100%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/00.jpg" style='width: 50%;display: block; margin-left: 24%;display: block;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/1.jpg" style='width: 35%; margin-left: 32%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/2.jpg" style='width: 60%;width: 45%;margin-left: 22%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/3.jpg" style='width: 45%;margin-left: 26%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/4.jpg" style='width: 80%;margin-left: 10%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/5.jpg" style='width: 40%; margin-left: 27%;' alt=""></li> 
+												</ul>
+											</div>
 											<hr>
-											<h1> Redeem Prize</h1>
+											<div class='title'> Freebies can be claimed here</div>
 											<form method="POST" action="/eraffle/redeem/items">
 												<input type="email" name="emailaddress" placeholder="Email Address" value="<?php if (isset($email) && !empty($email)) {  echo $email; } ?>" required />
 												<input type="submit" value="Send" />
@@ -138,6 +141,8 @@
 	<!-- script references -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/fb/bootstrap.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/plugins/responsiveSlide/responsiveslides.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/plugins/responsiveSlide/read.js"></script>
 		<script src="<?php echo base_url(); ?>js/fb/scripts.js"></script>
 	</body>
 </html>
