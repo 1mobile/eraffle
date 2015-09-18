@@ -1,6 +1,6 @@
-		<header class="header">
+		<header class="header" >
             <a href="<?php echo base_url()."dashboard"; ?>" class="logo">
-                <?php echo $logo; ?>
+              <img src="<?php echo base_url(); ?>img/codetojoy_mini.jpg" width='45'>  <?php echo $logo; ?>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
