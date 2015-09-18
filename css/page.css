@@ -20,6 +20,16 @@
   -moz-border-radius: 0px !important;
   border-radius: 0px !important;
 }
+.all-no-raduis div{
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important;
+}
+.all-no-raduis button{
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important;
+}
 .vertical-list{
 	margin: 0;
 	padding: 0px 0px;

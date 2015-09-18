@@ -4,11 +4,15 @@ $(document).ready(function(){
 		var range = $('#draw').attr('range');
 		var formData = 'range='+range;	
 		var codes;
+		var i = 0;	
+		$('#stop').disabled();
+		$('#pause').disabled();
+
 		$.post(baseUrl+'raffle/get_valid_codes',formData,function(data){
 			var codes = data;
 			$('#draw').click(function(){
 				var delay = parseFloat($('#draw').attr('delay'));
-				startDraw(codes);
+				startDraw(codes,delay);
 				return false;
 			});
 			$('#stop').click(function(){
@@ -17,41 +21,71 @@ $(document).ready(function(){
 			$('#pause').click(function(){
 				pauseDraw(codes);
 			});
-
+			$('#reset').click(function(){
+				resetRaffle(codes);
+			});
 		},'json');
 
-		function startDraw(codes){
+		function startDraw(codes,delay){
 			timeout = setInterval(function(){
-				cd = randomCode(codes);
-				$('#raffle-txt').html(cd.code);
+				i++;
+				if(i == delay){
+					stopDraw(codes);
+				}
+				else{
+					cd = randomCode(codes);
+					$('#raffle-txt').html(cd.code);
+					$('#draw').disabled();
+					$('#stop').disabled({dis:false});
+					$('#pause').disabled({dis:false});					
+				}
 			},1000/25);
 		}
 
 		function stopDraw(codes){
+			i = 0;
 			clearInterval(timeout);
 			cd = randomCode(codes);
 			$('#raffle-txt').html(cd.code);
+			$('#draw').disabled();
+			$('#stop').disabled();
+			$('#pause').disabled();
 			winner(cd);
 		}
 
 		function pauseDraw(codes){
+			i = 0;
 			clearInterval(timeout);
 			cd = randomCode(codes);
 			$('#raffle-txt').html(cd.code);
+			$('#draw').disabled({dis:false});
+			$('#stop').disabled();
+			$('#pause').disabled();
 		}
 
 		function winner(cd){
 			var el = $('#congrats-txt');
 			el.text('Congratulations to '+cd.email);
 			el.blinkEffect();
-			$.playSound(baseUrl+'img/congrats_song');
+			// $.playSound(baseUrl+'img/congrats_song');
 		}
 
 		function randomCode(codes){
 			var length = codes.length; 
 			var random = Math.floor(Math.random()*length);
-			console.log(codes[random]);
 			return codes[random];
+		}
+
+		function resetRaffle(codes){
+			i = 0;
+			clearInterval(timeout);
+			$('#raffle-txt').html("----");
+			$('#draw').disabled({dis:false});
+			$('#stop').disabled();
+			$('#pause').disabled();
+			var el = $('#congrats-txt');
+			el.text('');
+			
 		}
 
 		// $('#draw').click(function(){
