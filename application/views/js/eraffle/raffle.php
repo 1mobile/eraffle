@@ -3,6 +3,7 @@ $(document).ready(function(){
 	<?php if($use_js == 'raffleJs'): ?>
 		var range = $('#draw').attr('range');
 		var formData = 'range='+range;	
+		var codes;
 		$.post(baseUrl+'raffle/get_valid_codes',formData,function(data){
 			var codes = data;
 			$('#draw').click(function(){
