@@ -62,6 +62,7 @@ class Trans extends CI_Controller {
     }
     public function search_form(){
         $data['code'] = searchForm();
+		
         $this->load->view('load',$data);
     }
     public function redeem(){
@@ -237,6 +238,8 @@ class Trans extends CI_Controller {
         $data = $this->syter->spawn('trans');
         $th = array('EMAIL','NAME','ITEM','QTY','AREA','DATE');
         $data['code'] = site_list_table('redeems','redeem_id','redeems-tbl',$th,'trans/item_redeems_search_form',false,'list','Item Redeems');
+		$data['add_css'] = array('css/datepicker/datepicker.css','css/daterangepicker/daterangepicker-bs3.css');
+        $data['add_js'] = array('js/plugins/datepicker/bootstrap-datepicker.js','js/plugins/daterangepicker/daterangepicker.js');
         $data['load_js'] = 'eraffle/trans';
         $data['use_js'] = 'redeemItemListJS';
         $data['page_no_padding'] = true;
@@ -266,6 +269,17 @@ class Trans extends CI_Controller {
              $args['items.item_id'] = array('use'=>'where','val'=>$this->input->post('item'));
              // $args['items.item_name'] = array('use'=>'or_like','val'=>$this->input->post('item'));
         }
+		
+		if($this->input->post('date_range')){
+			$dates = $this->input->post('date_range');
+			$range = explode(' to ', $dates);
+            $from = date2SqlDateTime($range[0]);
+            $to = date2SqlDateTime($range[1]);
+            $args['redeems.datetime >= '] = $from;
+            $args['redeems.datetime <= '] = $to;
+             // $args['items.item_name'] = array('use'=>'or_like','val'=>$this->input->post('item'));
+        }
+		
         $select = "redeem_items.*,items.item_name,redeems.email,redeems.name,redeems.datetime,areas.name as company, areas.area as location";
         $join['items'] = array('content'=>'redeem_items.item_id = items.item_id');
         $join['redeems'] = array('content'=>'redeem_items.redeem_id = redeems.redeem_id');
@@ -293,6 +307,10 @@ class Trans extends CI_Controller {
     }
     public function item_redeems_search_form(){
         $data['code'] = redeemItemsearchForm();
+		$data['add_css'] = array('css/datepicker/datepicker.css','css/daterangepicker/daterangepicker-bs3.css');
+        $data['add_js'] = array('js/plugins/datepicker/bootstrap-datepicker.js','js/plugins/daterangepicker/daterangepicker.js');
+		$data['load_js'] = 'eraffle/trans';
+        $data['use_js'] = 'redeemItemSearchJS';
         $this->load->view('load',$data);
     }
 }

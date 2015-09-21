@@ -41,16 +41,39 @@ class Raffle extends CI_Controller {
         }
         $args['codes.email is not null'] = array('use'=>'where','val'=>null,'third'=>false);
         $codes = array();
+		$w_codes =  array();
         $result = $this->site_model->get_tbl('codes',$args);
-        
+        $draw = $this->site_model->get_tbl('raffle_draw',array(),array(),null,true,'code');
+		
+		foreach($draw as $code){
+			$w_codes[] = $code->code;
+		}
         foreach ($result as $res) {
-            $codes[]=$res;    
+		    if(!in_array($res->code,$w_codes)){
+				$codes[]=$res;    
+			}
         }
+		
         if($asJson)
             echo json_encode($codes);
         else
             return $codes;
-    }    
+    }
+
+	public function add_winner($asJson=true){    
+		$winner = array(
+            "code"=> $this->input->post('code'),
+            "name"=> $this->input->post('name'),
+            "email"=> $this->input->post('email'),
+            "item"=> $this->input->post('prize'),
+			"contact"=> $this->input->post('contact'),
+			"draw_seq"=>  $this->input->post('seq'),
+        );
+		
+	    $id = $this->site_model->add_tbl('raffle_draw',$winner,array('datetime'=>'now()'));
+	     echo $id;
+	}
+	
     public function raffle_chars(){
         $characters = "23456789ABCDEFHJKLMNPRTVWXYZ";
         return str_split($characters);
