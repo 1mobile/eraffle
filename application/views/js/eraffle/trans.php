@@ -8,6 +8,8 @@ $(document).ready(function(){
 								goTo('trans/redeem');
 							 }				 	
 		});
+		
+		
 	<?php elseif($use_js == 'redeemJS'): ?>
 		$('#save-btn').click(function(){
 
@@ -96,12 +98,39 @@ $(document).ready(function(){
 				$('#total-qtys').number(data.qtys,2);
 			},'json')
 		}
+		
 	<?php elseif($use_js == 'redeemItemListJS'): ?>
+      console.log($('div.rTable-search-form').find('.daterangepicker'));
+	 
+		
+	
+	
 		$('#redeems-tbl').rTable({
 			loadFrom	: 	 'trans/get_redeem_item_list',
 			noEdit		: 	 true,
 			noAdd		: 	 true			 	
 		});
+		
+		 $('button#rtable-search-btn').on('click',function(e){
+		e.preventDefault();
+		    console.log('aaaaaaaaaaaaaa');
+		});
+		
+		$('div.rTable-search-form').find('.daterangepicker').each(function(index){
+				if ($(this).hasClass('datetimepicker')) {
+					$(this).daterangepicker({separator: ' to ', timePicker: true, timePickerIncrement:15, format: 'YYYY/MM/DD h:mm A'});
+				} else {
+					$(this).daterangepicker({separator: ' to '});
+				}
+			});
+	<?php elseif($use_js == 'redeemItemSearchJS'): ?>
+	$('.daterangepicker').each(function(index){
+ 			if ($(this).hasClass('datetimepicker')) {
+ 				$(this).daterangepicker({separator: ' to ', timePicker: true, timePickerIncrement:15, format: 'YYYY/MM/DD h:mm A'});
+ 			} else {
+ 				$(this).daterangepicker({separator: ' to '});
+ 			}
+ 		});
 	<?php endif; ?>
 });
 </script>

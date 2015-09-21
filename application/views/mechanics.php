@@ -35,7 +35,7 @@
           				<span class="icon-bar"></span>
           				<span class="icon-bar"></span>
                       </button>
-                      <a href="/" class="navbar-brand br-logo">ba</a>
+                      <a href="/" class="navbar-brand "><img src="<?php echo base_url(); ?>img/codetojoy_mini.jpg" width='45'> </a>
                   	</div>
 					<nav class="collapse navbar-collapse" role="navigation">
                   	                   <ul class="nav navbar-nav">
@@ -45,9 +45,9 @@
                       <li>
                         <a href="/eraffle/redeem"><span class="badge">Redeem Prize</span></a>
                       </li>
-					  <li>
+					 <!-- <li>
                         <a href="/eraffle/codes/how_to">How to Claim Prize</a>
-                      </li>
+                      </li>-->
 					  <li>
                         <a href="#">Promo Mechanics</a>
                       </li>
@@ -118,5 +118,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/fb/bootstrap.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/fb/scripts.js"></script>
+		<script src="<?php echo base_url(); ?>js/plugins/responsiveSlide/responsiveslides.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/plugins/responsiveSlide/read.js"></script>
 	</body>
 </html>

@@ -44,7 +44,7 @@
           				<span class="icon-bar"></span>
           				<span class="icon-bar"></span>
                       </button>
-                      <a href="/" class="navbar-brand br-logo">ba</a>
+                      <a href="/" class="navbar-brand "><img src="<?php echo base_url(); ?>img/codetojoy_mini.jpg" width='45'> </a>
                   	</div>
 					<nav class="collapse navbar-collapse" role="navigation">
                   	                   <ul class="nav navbar-nav">
@@ -54,9 +54,9 @@
                       <li>
                         <a href="#"><span class="badge">Redeem Prize</span></a>
                       </li>
-					  <li>
+					 <!-- <li>
                         <a href="/eraffle/codes/how_to">How to Claim Prize</a>
-                      </li>
+                      </li>-->
 					  <li>
                         <a href="/eraffle/codes/mechanics">Promo Mechanics</a>
                       </li>
