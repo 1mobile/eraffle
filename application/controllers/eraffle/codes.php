@@ -7,9 +7,9 @@ class Codes extends CI_Controller {
     }
     public function index(){
         $data = $this->syter->spawn('codes');
-        $th = array('ID','Code','Points','Email','Name','Entry Date','Reg Date');
+        $th = array('ID','Code','Points','Email','Name','Contact Number','Entry Date','Reg Date');
         $data['code'] = site_list_table('codes','code_id','codes-tbl',$th,'codes/search_form');
-        $data['page_title'] = fa('fa-tags')." Codes";
+        $data['page_title'] = fa('fa-tags')."Entry Codes";
         $data['load_js'] = 'eraffle/codes';
         $data['use_js'] = 'codesJS';
         $data['page_no_padding'] = true;
@@ -160,6 +160,7 @@ class Codes extends CI_Controller {
                     "points"=>$res->points,   
                     "subtitle"=>$res->email,   
                     "name"=>$res->name,   
+					"contact"=>$res->contact_no,   
                     "caption"=>($res->datetime == ""? "" : sql2Date($res->datetime)),
                     "reg_date"=>($res->reg_date == ""? "" : sql2Date($res->reg_date))
                 );
@@ -180,6 +181,7 @@ class Codes extends CI_Controller {
         $name = $this->input->post('name');
         $ip = $this->input->post('ip');
 		$area = $this->input->post('area');
+		$contact = $this->input->post('contact');
     	 //	 print_r($area);die();
          /*
             $email = 'rey.tejada01@gmail.com';
@@ -206,7 +208,8 @@ class Codes extends CI_Controller {
 						'name'=>$name,
 						'ip'=>$ip,
 						'area_id'=>$area,
-						'datetime'=>$now
+						'datetime'=>$now,
+						'contact_no' => $contact,
 					);
 					$this->site_model->update_tbl('codes','code',$items,$code);
 					$this->send_confirm_mail($code);
