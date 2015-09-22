@@ -91,11 +91,13 @@
 											<div class='title'>Register here to join the raffle </div>
 											<form method="POST"  name='r_entry' id='r_entry' action="/eraffle/codes/redeem" onsubmit="r_submit.disabled = true;">
 											<select name="area" required>
+												<option name='area_opt' value= ''>Location</option>
 											   <?php 
 													foreach($areas as $area){ 
 														$area_name = $area->name;
 														$area_loc = $area->area;
-														echo "<option name='area_opt' value= '".$area->id."'> $area_name , $area_loc </option>";
+														$selected = ($area_cur == $area->id ) ? 'selected' :''; 
+														echo "<option name='area_opt' $selected value= '".$area->id."'> $area_name , $area_loc </option>";
 													} 
 												?>
 											</select>

@@ -119,7 +119,7 @@ class Codes extends CI_Controller {
                 return true;                
             }
             else{
-                site_alert('Some Codes had already been uploaded','error');
+                site_alert('Some Codes had already been uploaded: '.$value['code'],'error');
                 unlink($target);
                 return false;
             }
@@ -196,11 +196,13 @@ class Codes extends CI_Controller {
             $res = $result[0];
             $now = $this->site_model->get_db_now('sql');
 			//var_dump($res->email);
-			$select = "codes.area_id,codes.datetime";
+			$select = "codes.area_id,codes.datetime,areas.name,areas.area";
+			$join['areas'] = array('content'=>'codes.area_id = areas.id');
 			$args2['codes.email'] = $email;
-			$items = $this->site_model->get_tbl('codes',$args2,array('datetime'=>'asc'),null,true,$select,'',1);
+			$items = $this->site_model->get_tbl('codes',$args2,array('datetime'=>'asc'),$join,true,$select,'',1);
 			if(count($items) > 0 && $area != $items[0]->area_id){
-				$error = "<font color='red'>The location provided mismatch the previous entries.</font>";
+				$ini = $items[0]->name." ".$items[0]->area;
+				$error = "<font color='red'>The location provided mismatch the previous entries. First location was $ini</font>";
 			}else{			
 				if($res->email == "" && strlen($res->email) == 0){
 					$items = array(
@@ -240,6 +242,8 @@ class Codes extends CI_Controller {
 			$data['name'] = ucwords($name);
 			$data['email'] = $email;
 			$data['code'] = $code;
+			$data['contact'] = $contact;
+			$data['area_cur'] =  $area;
 			$this->load->view('form',$data);
 		}
     }
