@@ -138,9 +138,10 @@ div.e_error{
 
     text-align: center;
     margin-top: 4%;
-    BACKGROUND-COLOR: #E56666;
+    BACKGROUND-COLOR: whitesmoke;
     PADDING: 10px;
-
+    border-left: 3px solid red;
+    font-weight: 600;
 }
 
 
