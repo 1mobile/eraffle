@@ -14,10 +14,8 @@
 		<link rel="stylesheet" href='<?php echo base_url(); ?>css/eraffle.css'>
 		<link rel="stylesheet" href='<?php echo base_url(); ?>css/sweetalert.css'>
 			<link rel="stylesheet" href='<?php echo base_url(); ?>css/responsiveSlide/responsiveslides.css'>
-		
-		
-		responsiveslides.css
-
+		<meta property="og:image" content='<?php echo base_url(); ?>img/entry_form.JPG' />
+		<meta property="og:title" content="Code to Joy Promo" />
 	</head>
 	<body>
 <div class="wrapper">
@@ -91,7 +89,7 @@
 											<div class='title'>Register here to join the raffle </div>
 											<form method="POST"  name='r_entry' id='r_entry' action="/eraffle/codes/redeem" onsubmit="r_submit.disabled = true;">
 											<select name="area" required>
-												<option name='area_opt' value= ''>Location</option>
+												<option name='area_opt' value= ''>LOCATION</option>
 											   <?php 
 													foreach($areas as $area){ 
 														$area_name = $area->name;

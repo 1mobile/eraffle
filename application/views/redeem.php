@@ -13,6 +13,8 @@
 		<link href="<?php echo base_url(); ?>css/fb/styles.css" rel="stylesheet">
 		<link rel="stylesheet" href='<?php echo base_url(); ?>css/eraffle.css'>
 		<link rel="stylesheet" href='<?php echo base_url(); ?>css/responsiveSlide/responsiveslides.css'>
+		<meta property="og:image" content='<?php echo base_url(); ?>img/redeem_form.JPG' />
+		<meta property="og:title" content="Code to Joy Promo" />
 		<!--<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
 		<script src='<?php echo base_url(); ?>js/plugins/responsiveSlide/responsiveslides.min.js'></script>
 		<script> $(function () {

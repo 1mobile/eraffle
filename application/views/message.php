@@ -81,7 +81,7 @@
 												</ul>
 											</div>
 											<hr>
-											<h1>Raffle Entry</h1>
+											<div class='title'>SUCCESS</div>
 												<h3 style='font:25px sans-serif;'> <?php echo $status; ?></h3>
 												<p style='font: 14px sans-serif;'><?php echo  $confirm; ?></p>
 												<?php 
