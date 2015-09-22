@@ -201,7 +201,7 @@ class Codes extends CI_Controller {
 			$args2['codes.email'] = $email;
 			$items = $this->site_model->get_tbl('codes',$args2,array('datetime'=>'asc'),$join,true,$select,'',1);
 			if(count($items) > 0 && $area != $items[0]->area_id){
-				$ini = $items[0]->name." ".$items[0]->area;
+				$ini = $items[0]->name.", ".$items[0]->area;
 				$error = "<font color='red'>The location provided mismatch the previous entries. First location was $ini</font>";
 			}else{			
 				if($res->email == "" && strlen($res->email) == 0){
