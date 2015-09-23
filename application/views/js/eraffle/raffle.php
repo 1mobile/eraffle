@@ -4,45 +4,40 @@ $(document).ready(function(){
 		var range = $('#draw').attr('range');
 		var formData = 'range='+range;
 		var codes;
-<<<<<<< HEAD
+
 		var i = 0;
-=======
+
 		var winner_arr = [];
 		var $get_win = [];
 		var action;
-		
-		var i = 0;	
->>>>>>> origin/master
+
 		$('#stop').disabled();
 		$('#pause').disabled();
 
-		
-		//get_codes();
-		
 			$('#draw').click(function(){
 					get_codes('draw');
-			
+
 			});
-			
+
 			$('#stop').click(function(){
 				get_codes('stop');
 			});
-			
+
 			$('#pause').click(function(){
 				get_codes('pause');
 			});
-				
+
 			$('#reset').click(function(){
 				get_codes('reset');
 			});
-			
+
 		function get_codes(action){
 			var range = $('#draw').attr('range');
 			var formData = 'range='+range;
 			$.post(baseUrl+'raffle/get_valid_codes',formData,function(data){
 				 codes = data;
-		
-				
+
+
 				console.log(codes);
 				if(action == 'draw'){
 					var delay = parseFloat($('#draw').attr('delay'));
@@ -55,12 +50,12 @@ $(document).ready(function(){
 				}else{
 					resetRaffle(codes);
 				}
-					
+
 			},'json');
-		
+
 		}
-		
-			
+
+
 
 
 		function startDraw(codes,delay){
@@ -87,7 +82,7 @@ $(document).ready(function(){
 			//cd = codes[];
 			console.log(cd);
 			//console.log(winner_arr);
-	
+
 			$('#raffle-txt').html(cd.code);
 			$('#draw').disabled();
 			$('#stop').disabled();
@@ -108,12 +103,12 @@ $(document).ready(function(){
 		function winner(cd){
 			var el = $('#congrats-txt');
 
-			 
+
 			$get_draw_seq = localStorage.getItem('seq');
 			$seq = (!$get_draw_seq)?  1 : parseInt($get_draw_seq) + 1;
 			$seq_lbl = '';
 			$prize = '';
-			
+
 			if($seq == 1){
 				$seq_lbl = $seq + 'st';
 			}else if($seq == 2){
@@ -123,7 +118,7 @@ $(document).ready(function(){
 			}else{
 				$seq_lbl = $seq + 'th';
 			}
-			
+
 			if($seq <= 10){
 			  $prize = 'Herschel Bag';
 				localStorage.setItem('seq',$seq);
@@ -132,37 +127,32 @@ $(document).ready(function(){
 				localStorage.setItem('seq',$seq);
 			}else{
 				$prize = 'GoPro Hero 4 Silver Edition ';
-				localStorage.setItem('seq','');				
+				localStorage.setItem('seq','');
 			}
-			
+
 
 			$.post(baseUrl+'raffle/add_winner',{code: cd.code,email: cd.email, name:cd.name , contact: cd.contact_no , seq: $seq_lbl,'prize': $prize },function(data){
 				if(data){
 					el.text('Congratulations to '+$seq_lbl + ' winner ' +cd.name + ' won ' + $prize);
 					el.blinkEffect();
 				}
-			
+
 			});
-			
-			
+
+
 			// $.playSound(baseUrl+'img/congrats_song');
 		}
 
 		function randomCode(codes){
-<<<<<<< HEAD
+
 			var length = codes.length;
 			var random = Math.floor(Math.random()*length);
-=======
-			var length = codes.length; 
-			var random = Math.floor(Math.random()*length);		
-			
-			
->>>>>>> origin/master
+
 			return codes[random];
 			//return codes[random];
 		}
-		
-		
+
+
 
 		function resetRaffle(codes){
 			i = 0;
