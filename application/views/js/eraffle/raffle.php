@@ -2,9 +2,9 @@
 $(document).ready(function(){
 	<?php if($use_js == 'raffleJs'): ?>
 		var range = $('#draw').attr('range');
-		var formData = 'range='+range;	
+		var formData = 'range='+range;
 		var codes;
-		var i = 0;	
+		var i = 0;
 		$('#stop').disabled();
 		$('#pause').disabled();
 
@@ -37,7 +37,7 @@ $(document).ready(function(){
 					$('#raffle-txt').html(cd.code);
 					$('#draw').disabled();
 					$('#stop').disabled({dis:false});
-					$('#pause').disabled({dis:false});					
+					$('#pause').disabled({dis:false});
 				}
 			},1000/25);
 		}
@@ -71,7 +71,7 @@ $(document).ready(function(){
 		}
 
 		function randomCode(codes){
-			var length = codes.length; 
+			var length = codes.length;
 			var random = Math.floor(Math.random()*length);
 			return codes[random];
 		}
@@ -85,7 +85,7 @@ $(document).ready(function(){
 			$('#pause').disabled();
 			var el = $('#congrats-txt');
 			el.text('');
-			
+
 		}
 
 		// $('#draw').click(function(){
@@ -126,6 +126,12 @@ $(document).ready(function(){
  				$(this).daterangepicker({separator: ' to '});
  			}
  		});
+	<?php elseif($use_js == 'raffleListJS'): ?>
+		$('#raffle-draw-tbl').rTable({
+			loadFrom	: 	 'raffle/get_raffle_draw_list',
+			noEdit		: 	 true,
+			noAdd		: 	 true
+		});
 	<?php endif; ?>
 });
 </script>

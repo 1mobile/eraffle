@@ -92,16 +92,33 @@ function rafflePage($range,$delay){
 			$CI->make->eDIv();
 		$CI->make->eDiv();
 		// $CI->make->append('
-			
+
 		// 	<div class="wrap">
 		// 	  <span class="horiz-flag noise"> <h1>Sample Box</h1></span>
 		// 	   <img src="http://www.wpthemegenerator.com/wp-content/uploads/2012/06/Image.jpg">
 		// 	   <p>
 		// 	         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus consectetur dolor a porttitor. Curabitur id sem sed ante fringilla pulvinar et id lectus. Nullam justo ipsum, hendrerit ut commodo nec, pellentesque nec erat. Pellentesque pharetra.
-		// 	   </p> 
+		// 	   </p>
 		// 	</div>
 
 		// ');
+	return $CI->make->code();
+}
+function raffleDrawListSearchForm($post=array()){
+	$CI =& get_instance();
+	$CI->make->sForm();
+		$CI->make->sDivRow();
+			$CI->make->sDivCol(6);
+				$CI->make->input('Email','email',null,null);
+				$CI->make->input('Code','code',null,null);
+				$CI->make->date('Date-Time','datetime',null,null);
+			$CI->make->eDivCol();
+			$CI->make->sDivCol(6);
+				$CI->make->input('Draw #','draw_seq',null,null);
+				$CI->make->input('Item','item',null,null);
+			$CI->make->eDivCol();
+    	$CI->make->eDivRow();
+	$CI->make->eForm();
 	return $CI->make->code();
 }
 ?>
