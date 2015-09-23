@@ -3,7 +3,7 @@ body{
 }	
 .form-style-6 {
     font : 95% Arial, Helvetica, sans-serif;
-    max-width : 400px;
+    max-width : 600px;
     margin : 10px auto;
     padding : 16px;
     background : #fff;
@@ -110,7 +110,7 @@ h1{
 
 hr{
  border:1px solid;
- color: #EC7171;
+ color: #FFBB18;
 }
 
 .logo{
@@ -141,4 +141,24 @@ div.e_error{
     BACKGROUND-COLOR: #E56666;
     PADDING: 10px;
 
+}
+
+
+.unslide{
+    max-height: 300px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+div.title{
+    font-family: bowlby;
+    color: #57216F;
+    text-align: center;
+	font-size: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+  div.title {
+    font-size: 21px;
+  }
 }

@@ -7,8 +7,9 @@
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link href="<?php echo base_url(); ?>css/fb/bootstrap.min.css" rel="stylesheet">
-		 <link rel="stylesheet" href="<?php echo base_url(); ?>css/jquery-ui.css">
-		  <link rel="stylesheet" href="<?php echo base_url(); ?>css/sweetalert.css">
+		<link rel="stylesheet" href="<?php echo base_url(); ?>css/jquery-ui.css">
+		<link rel="stylesheet" href="<?php echo base_url(); ?>css/sweetalert.css">
+		<link rel="stylesheet" href='<?php echo base_url(); ?>css/responsiveSlide/responsiveslides.css'>
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -53,7 +54,7 @@
           				<span class="icon-bar"></span>
           				<span class="icon-bar"></span>
                       </button>
-                      <a href="/" class="navbar-brand br-logo">ba</a>
+                      <a href="/" class="navbar-brand "><img src="<?php echo base_url(); ?>img/codetojoy_mini.jpg" width='45'> </a>
                   	</div>
 					<nav class="collapse navbar-collapse" role="navigation">
                   	                   <ul class="nav navbar-nav">
@@ -63,9 +64,9 @@
                       <li>
                         <a href="/eraffle/redeem"><span class="badge">Redeem Prize</span></a>
                       </li>
-					   <li>
+					 <!--  <li>
                         <a href="/eraffle/codes/how_to">How to Claim Prize</a>
-                      </li>
+                      </li>-->
 					  <li>
                         <a href="/eraffle/codes/mechanics">Promo Mechanics</a>
                       </li>
@@ -92,9 +93,21 @@
                           <!-- main col right -->
                                 <div class="panel panel-default"> 
                                   		<div class="form-style-6">
-											<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>
+											<!--<img src='<?php echo base_url(); ?>img/sweetbyteFB.jpg' class= 'logo' height='194' width='303'>-->
+											
+											<div class='unslide'>
+												<ul class="rslides" id='rslides'>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/0.jpg" style='width: 100%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/00.jpg" style='width: 50%;display: block; margin-left: 24%;display: block;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/1.jpg" style='width: 35%; margin-left: 32%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/2.jpg" style='width: 60%;width: 45%;margin-left: 22%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/3.jpg" style='width: 45%;margin-left: 26%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/4.jpg" style='width: 80%;margin-left: 10%;' alt=""></li>
+												  <li><img src="<?php echo base_url(); ?>img/responsiveslide/5.jpg" style='width: 40%; margin-left: 27%;' alt=""></li> 
+												</ul>
+											</div>
 											<hr>
-											<h1>Redeem Prize</h1>
+											<h1>Register here to join the raffle</h1>
 									<?php 
 									
 									if(isset($msg) && !empty($msg)){
@@ -171,6 +184,8 @@
 		<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 		<script src="<?php echo base_url(); ?>js/fb/scripts.js"></script>
 		<script src="<?php echo base_url(); ?>js/sweetalert.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/plugins/responsiveSlide/responsiveslides.min.js"></script>
+		<script src="<?php echo base_url(); ?>js/plugins/responsiveSlide/read.js"></script>
 		<script>
 			 $(function() {
 			$( "#dialog-message" ).dialog({

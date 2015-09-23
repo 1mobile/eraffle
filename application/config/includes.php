@@ -12,6 +12,7 @@ $styleSheets[] = "css/fileUpload/jquery.fileupload.css";
 $styleSheets[] = "css/timepicker/bootstrap-timepicker.css";
 $styleSheets[] = "js/plugins/perfect-scrollbar/perfect-scrollbar.css";
 $styleSheets[] = "js/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css";
+$styleSheets[] = "js/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css";
 $styleSheets[] = "css/chosen/chosen.css";
 $styleSheets[] = "css/chosen/chosen-bootstrap3.css";
 $styleSheets[] = "css/AdminLTE.css";

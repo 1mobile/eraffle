@@ -273,6 +273,7 @@ class Site_model extends CI_Model{
 	{
 		$this->db->select('*');
 		$this->db->from('areas');
+		$this->db->where('inactive !=',1);
 
 			$this->db->order_by('id desc');
 			$query = $this->db->get();

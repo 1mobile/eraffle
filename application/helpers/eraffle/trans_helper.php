@@ -26,6 +26,9 @@ function redeemItemsearchForm($post=array()){
 			$CI->make->sDivCol(6);
 				$CI->make->companyItemsDrop('Item','item',null,' - Select Item - ');
 			$CI->make->eDivCol();
+		    $CI->make->sDivCol(6);
+                     $CI->make->input('Code Redeem Date & Time Range','date_range',null,null,array('class'=>'rOkay daterangepicker datetimepicker','style'=>'position:initial;'),fa('fa-calendar'));
+           $CI->make->eDivCol();
     	$CI->make->eDivRow();
 	$CI->make->eForm();
 	return $CI->make->code();
